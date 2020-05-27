@@ -1,0 +1,116 @@
+{
+	title = "Home Screen Quick Actions";
+	items = (
+		{
+			cell = PSGroupCell;
+			label = "Enable Tweak";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "EnableTweak";
+			label = "Enable Tweak";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Global Quick Actions";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionEditHomeScreen";
+			label = "Edit Home Screen";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Folders Quick Actions";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionRenameFolder";
+			label = "Rename";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "App Store apps Quick Actions";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionShare";
+			label = "Share App";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionDelete";
+			label = "Delete App";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "App Quick Actions visible while app is downloading";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionPauseDownload";
+			label = "Pause Download";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionCancelDownload";
+			label = "Cancel Download";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionPrioritizeDownload";
+			label = "Prioritize Download";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Dock app Quick Actions";
+			footerText = "This option is only for devices with floating dock enabled, on stock devices it is enabled only on iPads";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionHideApp";
+			label = "Hide App";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Related Links";
+		},
+		{
+			cell = PSButtonCell;
+			label = "Tweak Source Code";
+			action = TweakSourceCode;
+		},
+		{
+			cell = PSButtonCell;
+			label = "Tomasz Poliszuk @ GitHub";
+			action = TomaszPoliszukGithub;
+		}
+	);
+}
