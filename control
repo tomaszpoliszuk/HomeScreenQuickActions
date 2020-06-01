@@ -1,0 +1,15 @@
+Package: com.tomaszpoliszuk.homescreenquickactions
+Depends: firmware (>= 13.0), mobilesubstrate, preferenceloader
+Name: Home Screen Quick Actions
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Select which Home Screen Quick Actions should be enabled on your device
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=homescreenquickactionsDp
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=homescreenquickactionsDp
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Author: Tomasz Poliszuk
+Sponsor: thebigboss.org <http://thebigboss.org>
+Section: Tweaks
+dev: tomaszpoliszuk
+Tag: purpose::extension, compatible::ios13
+Icon: file:///Library/PreferenceBundles/HomeScreenQuickActionsSettings.bundle/HomeScreenQuickActions@2x.png
