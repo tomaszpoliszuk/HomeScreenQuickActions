@@ -29,6 +29,3 @@ Configure options from Settings.
 ![notes](screenshots/homescreenquickactions2.jpg)
 ![folder](screenshots/homescreenquickactions3.jpg)
 ![dock](screenshots/homescreenquickactions4.jpg)
-
-
-This tweak is open sourced [on Github](https://github.com/tomaszpoliszuk/HomeScreenQuickActions)
