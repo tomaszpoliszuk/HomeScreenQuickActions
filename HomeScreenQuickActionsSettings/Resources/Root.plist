@@ -39,6 +39,18 @@
 		},
 		{
 			cell = PSGroupCell;
+			label = "App Quick Actions";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "QuickActionWidget";
+			label = "Widget";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+		},
+		{
+			cell = PSGroupCell;
 			label = "App Store apps Quick Actions";
 		},
 		{
@@ -59,7 +71,8 @@
 		},
 		{
 			cell = PSGroupCell;
-			label = "App Quick Actions visible while app is downloading";
+			label = "App is downloading Quick Actions";
+			footerText = "This Quick Actions are visible while app is downloading";
 		},
 		{
 			cell = PSSwitchCell;

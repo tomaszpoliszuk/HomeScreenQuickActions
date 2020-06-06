@@ -8,6 +8,9 @@
 **Folders Quick actions:**
 - Rename
 
+**App Quick Actions:**
+- Widget
+
 **App Store apps Quick actions:**
 - Share App
 - Delete App
@@ -22,8 +25,10 @@
 
 Configure options from Settings.
 
-![screenshot](screenshots/screenshot.png)
-![screenshot](screenshots/settings.png)
+![settings](screenshots/homescreenquickactions1.jpg)
+![notes](screenshots/homescreenquickactions2.jpg)
+![folder](screenshots/homescreenquickactions3.jpg)
+![dock](screenshots/homescreenquickactions4.jpg)
 
 
 This tweak is open sourced [on Github](https://github.com/tomaszpoliszuk/HomeScreenQuickActions)
