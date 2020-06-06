@@ -8,10 +8,10 @@
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "EnableTweak";
+			key = "enableTweak";
 			label = "Enable Tweak";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSGroupCell;
@@ -20,10 +20,10 @@
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionEditHomeScreen";
+			key = "quickActionEditHomeScreen";
 			label = "Edit Home Screen";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSGroupCell;
@@ -32,10 +32,10 @@
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionRenameFolder";
+			key = "quickActionRenameFolder";
 			label = "Rename";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSGroupCell;
@@ -44,10 +44,10 @@
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionWidget";
+			key = "quickActionWidget";
 			label = "Widget";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSGroupCell;
@@ -56,18 +56,18 @@
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionShare";
+			key = "quickActionShare";
 			label = "Share App";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionDelete";
+			key = "quickActionDelete";
 			label = "Delete App";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSGroupCell;
@@ -77,26 +77,26 @@
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionPauseDownload";
+			key = "quickActionPauseDownload";
 			label = "Pause Download";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionCancelDownload";
+			key = "quickActionCancelDownload";
 			label = "Cancel Download";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionPrioritizeDownload";
+			key = "quickActionPrioritizeDownload";
 			label = "Prioritize Download";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSGroupCell;
@@ -106,10 +106,10 @@
 		{
 			cell = PSSwitchCell;
 			default = false;
-			key = "QuickActionHideApp";
+			key = "quickActionHideApp";
 			label = "Hide App";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged";
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSGroupCell;

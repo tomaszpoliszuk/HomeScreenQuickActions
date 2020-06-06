@@ -25,14 +25,19 @@
 	return _specifiers;
 }
 
--(void)TomaszPoliszukGithub {
-	NSURL *TomaszPoliszukGithub = [NSURL URLWithString:@"https://github.com/tomaszpoliszuk/"];
-	[[UIApplication sharedApplication] openURL:TomaszPoliszukGithub options:@{} completionHandler:nil];
+-(void)TweakSourceCode {
+	NSURL *tweakSourceCode = [NSURL URLWithString:@"https://github.com/tomaszpoliszuk/HomeScreenQuickActions"];
+	[[UIApplication sharedApplication] openURL:tweakSourceCode options:@{} completionHandler:nil];
 }
 
--(void)TweakSourceCode {
-	NSURL *TweakSourceCode = [NSURL URLWithString:@"https://github.com/tomaszpoliszuk/HomeScreenQuickActions"];
-	[[UIApplication sharedApplication] openURL:TweakSourceCode options:@{} completionHandler:nil];
+-(void)TweakReportIssue {
+	NSURL *tweakReportIssue = [NSURL URLWithString:@"https://github.com/tomaszpoliszuk/HomeScreenQuickActions/issues/new"];
+	[[UIApplication sharedApplication] openURL:tweakReportIssue options:@{} completionHandler:nil];
+}
+
+-(void)TomaszPoliszukOnGithub {
+	NSURL *tomaszPoliszukOnGithub = [NSURL URLWithString:@"https://github.com/tomaszpoliszuk/"];
+	[[UIApplication sharedApplication] openURL:tomaszPoliszukOnGithub options:@{} completionHandler:nil];
 }
 
 @end

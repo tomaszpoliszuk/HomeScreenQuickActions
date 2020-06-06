@@ -1,7 +1,3 @@
-#define SettingsChangedNotification "com.tomaszpoliszuk.homescreenquickactions/TweakSettingsChanged"
-#define UserSettingsFile @"/var/mobile/Library/Preferences/com.tomaszpoliszuk.homescreenquickactions.plist"
-#define PackageName "com.tomaszpoliszuk.homescreenquickactions"
-
 @interface SBSApplicationShortcutItem : NSObject
 @property (nonatomic, retain) NSString *type;
 @end
@@ -13,134 +9,105 @@
 - (bool)showWidgets;
 @end
 
-NSMutableDictionary *TweakSettings;
+NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
+NSMutableDictionary *tweakSettings;
 
 //	enable tweak
-static BOOL EnableTweak;
-
+static BOOL enableTweak;
 //	global quick actions:
-static BOOL QuickActionEditHomeScreen;
-
+static BOOL quickActionEditHomeScreen;
 //	folders quick actions:
-static BOOL QuickActionRenameFolder;
-
+static BOOL quickActionRenameFolder;
 //	app quick actions
-static BOOL QuickActionWidget;
-
+static BOOL quickActionWidget;
 //	app store apps quick actions:
-static BOOL QuickActionShare;
-static BOOL QuickActionDelete;
-
+static BOOL quickActionShare;
+static BOOL quickActionDelete;
 //	app quick actions visible while app is downloading from app store
-static BOOL QuickActionPauseDownload;
-static BOOL QuickActionCancelDownload;
-static BOOL QuickActionPrioritizeDownload;
-
+static BOOL quickActionPauseDownload;
+static BOOL quickActionCancelDownload;
+static BOOL quickActionPrioritizeDownload;
 //	dock app quick actions
-static BOOL QuickActionHideApp;
+static BOOL quickActionHideApp;
 
 void TweakSettingsChanged() {
-	CFArrayRef keyList = CFPreferencesCopyKeyList(CFSTR(PackageName), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-	if(keyList) {
-		TweakSettings = (NSMutableDictionary *)CFBridgingRelease(CFPreferencesCopyMultiple(keyList, CFSTR(PackageName), kCFPreferencesCurrentUser, kCFPreferencesAnyHost));
-		CFRelease(keyList);
-	} else {
-		TweakSettings = nil;
-	}
-	if (!TweakSettings) {
-		TweakSettings = [NSMutableDictionary dictionaryWithContentsOfFile:UserSettingsFile];
-	}
-
+	NSUserDefaults *tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
 //	enable tweak
-	EnableTweak = [([TweakSettings objectForKey:@"EnableTweak"] ?: @(NO)) boolValue];
-
+	enableTweak = [[tweakSettings objectForKey:@"enableTweak"] boolValue];
 //	global quick actions:
-	QuickActionEditHomeScreen = [([TweakSettings objectForKey:@"QuickActionEditHomeScreen"] ?: @(NO)) boolValue];
-
+	quickActionEditHomeScreen = [[tweakSettings objectForKey:@"quickActionEditHomeScreen"] boolValue];
 //	folders quick actions:
-	QuickActionRenameFolder = [([TweakSettings objectForKey:@"QuickActionRenameFolder"] ?: @(NO)) boolValue];
-
+	quickActionRenameFolder = [[tweakSettings objectForKey:@"quickActionRenameFolder"] boolValue];
 //	app quick actions
-	QuickActionWidget = [([TweakSettings objectForKey:@"QuickActionWidget"] ?: @(NO)) boolValue];
-
+	quickActionWidget = [[tweakSettings objectForKey:@"quickActionWidget"] boolValue];
 //	app store apps quick actions:
-	QuickActionShare = [([TweakSettings objectForKey:@"QuickActionShare"] ?: @(NO)) boolValue];
-	QuickActionDelete = [([TweakSettings objectForKey:@"QuickActionDelete"] ?: @(NO)) boolValue];
-
+	quickActionShare = [[tweakSettings objectForKey:@"quickActionShare"] boolValue];
+	quickActionDelete = [[tweakSettings objectForKey:@"quickActionDelete"] boolValue];
 //	app quick actions visible while app is downloading from app store
-	QuickActionPauseDownload = [([TweakSettings objectForKey:@"QuickActionPauseDownload"] ?: @(NO)) boolValue];
-	QuickActionCancelDownload = [([TweakSettings objectForKey:@"QuickActionCancelDownload"] ?: @(NO)) boolValue];
-	QuickActionPrioritizeDownload = [([TweakSettings objectForKey:@"QuickActionPrioritizeDownload"] ?: @(NO)) boolValue];
-
+	quickActionPauseDownload = [[tweakSettings objectForKey:@"quickActionPauseDownload"] boolValue];
+	quickActionCancelDownload = [[tweakSettings objectForKey:@"quickActionCancelDownload"] boolValue];
+	quickActionPrioritizeDownload = [[tweakSettings objectForKey:@"quickActionPrioritizeDownload"] boolValue];
 //	dock app quick actions
-	QuickActionHideApp = [([TweakSettings objectForKey:@"QuickActionHideApp"] ?: @(NO)) boolValue];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:@SettingsChangedNotification object:nil userInfo:nil];
+	quickActionHideApp = [[tweakSettings objectForKey:@"quickActionHideApp"] boolValue];
 }
 
 %hook SBIconView
 -(void)setApplicationShortcutItems:(NSArray *)arg1 {
 	NSMutableArray *shortcutItems = [[NSMutableArray alloc] init];
 	for (SBSApplicationShortcutItem *shortcutItem in arg1) {
-
 //	global quick actions:
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.rearrange-icons"] ) {
-			if ( QuickActionEditHomeScreen ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.rearrange-icons"] ) {
+			if ( quickActionEditHomeScreen ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-
 //	folders quick actions:
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.rename-folder"] ) {
-			if ( QuickActionRenameFolder ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.rename-folder"] ) {
+			if ( quickActionRenameFolder ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-
 //	app store apps quick actions:
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.share"] ) {
-			if ( QuickActionShare ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.share"] ) {
+			if ( quickActionShare ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.delete-app"] ) {
-			if ( QuickActionDelete ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.delete-app"] ) {
+			if ( quickActionDelete ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-
 //	app quick actions visible while app is downloading from app store
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.pause-download"] ) {
-			if ( QuickActionPauseDownload ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.pause-download"] ) {
+			if ( quickActionPauseDownload ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.cancel-download"] ) {
-			if ( QuickActionCancelDownload ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.cancel-download"] ) {
+			if ( quickActionCancelDownload ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.prioritize-download"] ) {
-			if ( QuickActionPrioritizeDownload ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.prioritize-download"] ) {
+			if ( quickActionPrioritizeDownload ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-
 //	dock app quick actions
-		if ( EnableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.hide-app"] ) {
-			if ( QuickActionHideApp ) {
+		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.hide-app"] ) {
+			if ( quickActionHideApp ) {
 				[shortcutItems addObject: shortcutItem];
 			}
 			continue;
 		}
-
 //	every other app quick actions and also quick actions made by other tweaks
 		[shortcutItems addObject:shortcutItem];
 	}
@@ -151,17 +118,17 @@ void TweakSettingsChanged() {
 //	app quick actions
 %hook SBHHomeScreenSettings
 -(bool)showWidgets {
-	if ( EnableTweak ) {
-		return QuickActionWidget;
+	bool origValue = %orig;
+	if ( enableTweak ) {
+		return quickActionWidget;
 	} else {
-		return %orig;
+		return origValue;
 	}
 }
 %end
 
 %ctor {
-	TweakSettings = [[NSMutableDictionary alloc] initWithContentsOfFile:UserSettingsFile];
 	TweakSettingsChanged();
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)TweakSettingsChanged, CFSTR(SettingsChangedNotification), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)TweakSettingsChanged, CFSTR("com.tomaszpoliszuk.homescreenquickactions.settingschanged"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 	%init; // == %init(_ungrouped);
 }
