@@ -1,21 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>entry</key>
-	<dict>
-		<key>bundle</key>
-		<string>HomeScreenQuickActionsSettings</string>
-		<key>cell</key>
-		<string>PSLinkCell</string>
-		<key>detail</key>
-		<string>HomeScreenQuickActionsMainSettings</string>
-		<key>icon</key>
-		<string>icons/HomeScreenQuickActions.png</string>
-		<key>isController</key>
-		<true/>
-		<key>label</key>
-		<string>Home Screen Quick Actions</string>
-	</dict>
-</dict>
-</plist>
+{
+	entry = {
+		cell = PSLinkCell;
+		isController = 1;
+		label = Home Screen Quick Actions;
+		bundle = HomeScreenQuickActionsSettings;
+		detail = HomeScreenQuickActionsMainSettings;
+		icon = icons/HomeScreenQuickActions.png;
+	};
+}
