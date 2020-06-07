@@ -9,7 +9,7 @@
 @interface PSSwitchTableCell : PSControlTableCell
 @end
 
-@interface PSListController (iOS12Plus)
+@interface PSListController (HomeScreenQuickActions)
 -(BOOL)containsSpecifier:(id)arg1;
 @end
 
