@@ -2,7 +2,7 @@
 	entry = {
 		cell = PSLinkCell;
 		isController = 1;
-		label = Home Screen Quick Actions;
+		label = "Home Screen Quick Actions";
 		bundle = HomeScreenQuickActionsSettings;
 		detail = HomeScreenQuickActionsMainSettings;
 		icon = icons/HomeScreenQuickActions.png;
