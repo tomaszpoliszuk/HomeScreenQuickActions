@@ -186,10 +186,12 @@ void TweakSettingsChanged() {
 %hook _UIContextMenuActionsListView
 %new
 -(void)updateTraitOverride {
-	[self setOverrideUserInterfaceStyle:uiStyle];
+	if ( enableTweak && uiStyle > 0) {
+		[self setOverrideUserInterfaceStyle:uiStyle];
+	}
 }
 -(void)didMoveToWindow {
-	if (uiStyle > 0) {
+	if ( enableTweak && uiStyle > 0) {
 		[self setOverrideUserInterfaceStyle:uiStyle];
 	}
 	%orig;
@@ -199,17 +201,22 @@ void TweakSettingsChanged() {
 %hook SBHIconViewContextMenuWrapperViewController
 %new
 -(void)updateTraitOverride {
-	[self setOverrideUserInterfaceStyle:uiStyle];
+	if ( enableTweak && uiStyle > 0) {
+		[self setOverrideUserInterfaceStyle:uiStyle];
+
+	}
 }
 -(id)init {
 	if ((self = %orig)) {
-		[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateTraitOverride) name:@"com.tomaszpoliszuk.selectiveuistyle.override" object:nil];
-		[self setOverrideUserInterfaceStyle:uiStyle];
+		if ( enableTweak && uiStyle > 0) {
+			[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateTraitOverride) name:@"com.tomaszpoliszuk.selectiveuistyle.override" object:nil];
+			[self setOverrideUserInterfaceStyle:uiStyle];
+		}
 	}
 	return self;
 }
 -(void)viewDidLoad {
-	if (uiStyle > 0) {
+	if ( enableTweak && uiStyle > 0) {
 		[self setOverrideUserInterfaceStyle:uiStyle];
 	}
 	%orig;
