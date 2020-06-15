@@ -3,7 +3,9 @@
 **Requires iOS greater or equal to 13**
 
 **Possibilities:**
+
 *control UI Style of Home Screen Quick Actions*
+
 *Turn On/Turn Off default Home Screen Quick Actions:*
 - Edit Home Screen
 - Rename
@@ -14,6 +16,7 @@
 - Cancel Download
 - Prioritize Download
 - Hide App (This option is only for devices with floating dock enabled, on stock devices it is enabled only on iPads)
+
 *Turn On/Turn Off additional Home Screen Quick Actions:*
 - Copy Bundle ID
 
