@@ -1,5 +1,7 @@
 @interface SBSApplicationShortcutItem : NSObject
-@property (nonatomic, retain) NSString *type;
+@property (nonatomic, copy) NSString *localizedSubtitle;
+@property (nonatomic, copy) NSString *localizedTitle;
+@property (nonatomic, copy) NSString *type;
 @end
 
 @interface PTSettings : NSObject
@@ -9,9 +11,15 @@
 - (bool)showWidgets;
 @end
 
+
+@interface SBIconView : UIView
+@property (nonatomic, readonly, copy) NSString *applicationBundleIdentifierForShortcuts;
+@end
+
 NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
 NSMutableDictionary *tweakSettings;
 
+static id bundleId;
 //	enable tweak
 static BOOL enableTweak;
 //	global quick actions:
@@ -29,6 +37,8 @@ static BOOL quickActionCancelDownload;
 static BOOL quickActionPrioritizeDownload;
 //	dock app quick actions
 static BOOL quickActionHideApp;
+
+static BOOL copyBundleID;
 
 void TweakSettingsChanged() {
 	NSUserDefaults *tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
@@ -49,10 +59,16 @@ void TweakSettingsChanged() {
 	quickActionPrioritizeDownload = [[tweakSettings objectForKey:@"quickActionPrioritizeDownload"] boolValue];
 //	dock app quick actions
 	quickActionHideApp = [[tweakSettings objectForKey:@"quickActionHideApp"] boolValue];
+
+	copyBundleID = [[tweakSettings objectForKey:@"copyBundleID"] boolValue];
 }
 
 %hook SBIconView
 -(void)setApplicationShortcutItems:(NSArray *)arg1 {
+	NSString* bundleId;
+	if([self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)]) {
+		bundleId = [self applicationBundleIdentifierForShortcuts];
+	}
 	NSMutableArray *shortcutItems = [[NSMutableArray alloc] init];
 	for (SBSApplicationShortcutItem *shortcutItem in arg1) {
 //	global quick actions:
@@ -111,7 +127,27 @@ void TweakSettingsChanged() {
 //	every other app quick actions and also quick actions made by other tweaks
 		[shortcutItems addObject:shortcutItem];
 	}
+	if ( enableTweak && copyBundleID ) {
+		if (bundleId) {
+			SBSApplicationShortcutItem *bundleIdAction = [%c(SBSApplicationShortcutItem) alloc];
+			[UIPasteboard generalPasteboard].string = bundleId;
+
+			bundleIdAction.localizedTitle = @"Copy Bundle ID";
+			bundleIdAction.localizedSubtitle = bundleId;
+			bundleIdAction.type = @"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id";
+
+			[shortcutItems addObject: bundleIdAction];
+		}
+	}
 	%orig(shortcutItems);
+}
+- (bool)shouldActivateApplicationShortcutItem:(SBSApplicationShortcutItem*)item atIndex:(unsigned long long)arg2 {
+	BOOL origValue = %orig;
+	if([[item type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id"]) {
+		return NO;
+	} else {
+		return origValue;
+	}
 }
 %end
 

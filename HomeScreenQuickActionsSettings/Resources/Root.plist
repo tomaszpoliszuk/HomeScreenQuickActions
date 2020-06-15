@@ -113,6 +113,22 @@
 		},
 		{
 			cell = PSGroupCell;
+			label = "New Actions:";
+		},
+		{
+			cell = PSGroupCell;
+			label = "App Quick Actions";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "copyBundleID";
+			label = "Copy Bundle ID";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
 			label = "Related Links";
 		},
 		{
