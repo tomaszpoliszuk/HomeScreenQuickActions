@@ -15,6 +15,28 @@
 		},
 		{
 			cell = PSGroupCell;
+			label = "UI Style";
+		},
+		{
+			cell = PSSegmentCell;
+			default = 0;
+			key = "uiStyle";
+			label = "UI Style";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+			validValues = (
+				0,
+				1,
+				2
+			);
+			validTitles = (
+				"Default",
+				"Light",
+				"Dark"
+			);
+		},
+		{
+			cell = PSGroupCell;
 			label = "Global Quick Actions";
 		},
 		{

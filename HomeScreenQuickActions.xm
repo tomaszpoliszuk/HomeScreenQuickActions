@@ -16,6 +16,22 @@
 @property (nonatomic, readonly, copy) NSString *applicationBundleIdentifierForShortcuts;
 @end
 
+@interface UIView (HomeScreenQuickActions)
+-(void)setOverrideUserInterfaceStyle:(NSInteger)style;
+@end
+
+@interface UIInterfaceActionGroupView : UIView
+-(void)updateTraitOverride;
+@end
+
+@interface _UIContextMenuActionsListView : UIInterfaceActionGroupView
+-(void)updateTraitOverride;
+@end
+
+@interface SBHIconViewContextMenuWrapperViewController : UIViewController
+-(void)updateTraitOverride;
+@end
+
 NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
 NSMutableDictionary *tweakSettings;
 
@@ -40,6 +56,8 @@ static BOOL quickActionHideApp;
 
 static BOOL copyBundleID;
 
+static int uiStyle;
+
 void TweakSettingsChanged() {
 	NSUserDefaults *tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
 //	enable tweak
@@ -61,6 +79,8 @@ void TweakSettingsChanged() {
 	quickActionHideApp = [[tweakSettings objectForKey:@"quickActionHideApp"] boolValue];
 
 	copyBundleID = [[tweakSettings objectForKey:@"copyBundleID"] boolValue];
+
+	uiStyle = [[tweakSettings valueForKey:@"uiStyle"] integerValue];
 }
 
 %hook SBIconView
@@ -162,6 +182,40 @@ void TweakSettingsChanged() {
 	}
 }
 %end
+
+%hook _UIContextMenuActionsListView
+%new
+-(void)updateTraitOverride {
+	[self setOverrideUserInterfaceStyle:uiStyle];
+}
+-(void)didMoveToWindow {
+	if (uiStyle > 0) {
+		[self setOverrideUserInterfaceStyle:uiStyle];
+	}
+	%orig;
+}
+%end
+
+%hook SBHIconViewContextMenuWrapperViewController
+%new
+-(void)updateTraitOverride {
+	[self setOverrideUserInterfaceStyle:uiStyle];
+}
+-(id)init {
+	if ((self = %orig)) {
+		[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateTraitOverride) name:@"com.tomaszpoliszuk.selectiveuistyle.override" object:nil];
+		[self setOverrideUserInterfaceStyle:uiStyle];
+	}
+	return self;
+}
+-(void)viewDidLoad {
+	if (uiStyle > 0) {
+		[self setOverrideUserInterfaceStyle:uiStyle];
+	}
+	%orig;
+}
+%end
+
 
 %ctor {
 // Found in https://github.com/EthanRDoesMC/Dawn/commit/847cb5192dae9138a893e394da825e86be561a6b

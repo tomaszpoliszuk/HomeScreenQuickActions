@@ -2,26 +2,20 @@
 
 **Requires iOS greater or equal to 13**
 
-**Global Quick actions:**
+**Possibilities:**
+*control UI Style of Home Screen Quick Actions*
+*Turn On/Turn Off default Home Screen Quick Actions:*
 - Edit Home Screen
-
-**Folders Quick actions:**
 - Rename
-
-**App Quick Actions:**
 - Widget
-
-**App Store apps Quick actions:**
 - Share App
 - Delete App
-
-**App Quick actions visible while app is downloading:**
 - Pause Download
 - Cancel Download
 - Prioritize Download
-
-**Dock Quick app actions:**
 - Hide App (This option is only for devices with floating dock enabled, on stock devices it is enabled only on iPads)
+*Turn On/Turn Off additional Home Screen Quick Actions:*
+- Copy Bundle ID
 
 Configure options from Settings.
 
