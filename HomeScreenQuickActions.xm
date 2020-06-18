@@ -2,6 +2,7 @@
 @property (nonatomic, copy) NSString *localizedSubtitle;
 @property (nonatomic, copy) NSString *localizedTitle;
 @property (nonatomic, copy) NSString *type;
+- (void)setIcon:(SBSApplicationShortcutItem *)arg1;
 @end
 
 @interface PTSettings : NSObject
@@ -150,7 +151,6 @@ void TweakSettingsChanged() {
 	if ( enableTweak && copyBundleID ) {
 		if (bundleId) {
 			SBSApplicationShortcutItem *bundleIdAction = [%c(SBSApplicationShortcutItem) alloc];
-			[UIPasteboard generalPasteboard].string = bundleId;
 
 			bundleIdAction.localizedTitle = @"Copy Bundle ID";
 			bundleIdAction.localizedSubtitle = bundleId;
@@ -164,6 +164,7 @@ void TweakSettingsChanged() {
 - (bool)shouldActivateApplicationShortcutItem:(SBSApplicationShortcutItem*)item atIndex:(unsigned long long)arg2 {
 	BOOL origValue = %orig;
 	if([[item type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id"]) {
+		[UIPasteboard generalPasteboard].string = item.localizedSubtitle;
 		return NO;
 	} else {
 		return origValue;
@@ -203,7 +204,6 @@ void TweakSettingsChanged() {
 -(void)updateTraitOverride {
 	if ( enableTweak && uiStyle > 0) {
 		[self setOverrideUserInterfaceStyle:uiStyle];
-
 	}
 }
 -(id)init {
