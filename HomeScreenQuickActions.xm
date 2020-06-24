@@ -169,9 +169,13 @@ void TweakSettingsChanged() {
 	%orig(shortcutItems);
 }
 - (bool)shouldActivateApplicationShortcutItem:(SBSApplicationShortcutItem*)item atIndex:(unsigned long long)arg2 {
+	NSString* bundleId;
+	if([self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)]) {
+		bundleId = [self applicationBundleIdentifierForShortcuts];
+	}
 	BOOL origValue = %orig;
 	if([[item type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id"]) {
-		[UIPasteboard generalPasteboard].string = item.localizedSubtitle;
+		[UIPasteboard generalPasteboard].string = bundleId;
 		return NO;
 	} else {
 		return origValue;
