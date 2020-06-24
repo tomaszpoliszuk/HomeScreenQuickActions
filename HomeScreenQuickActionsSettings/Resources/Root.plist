@@ -151,6 +151,36 @@
 		},
 		{
 			cell = PSGroupCell;
+			label = "App Specific Quick Actions";
+		},
+		{
+			bundle = AppList;
+			cell = PSLinkCell;
+			isController = 1;
+			label = "App Specific Quick Actions";
+			ALSettingsPath = "/var/mobile/Library/Preferences/com.tomaszpoliszuk.homescreenquickactions.plist";
+			ALSettingsKeyPrefix = "appSpecificQuickActions-";
+			ALChangeNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+			ALSettingsDefaultValue = 1;
+			ALSectionDescriptors = (
+				{
+					title = "System Applications";
+					predicate = "(isSystemApplication = TRUE)";
+					"cell-class-name" = "ALSwitchCell";
+					"icon-size" = 29;
+					"suppress-hidden-apps" = 1;
+				},
+				{
+					title = "User Applications";
+					predicate = "(isSystemApplication = FALSE)";
+					"cell-class-name" = "ALSwitchCell";
+					"icon-size" = 29;
+					"suppress-hidden-apps" = 1;
+				}
+			);
+		},
+		{
+			cell = PSGroupCell;
 			label = "Related Links";
 		},
 		{

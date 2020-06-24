@@ -34,7 +34,7 @@
 @end
 
 NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
-NSMutableDictionary *tweakSettings;
+NSUserDefaults *tweakSettings;
 
 static id bundleId;
 //	enable tweak
@@ -60,7 +60,7 @@ static BOOL copyBundleID;
 static int uiStyle;
 
 void TweakSettingsChanged() {
-	NSUserDefaults *tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
+	tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
 //	enable tweak
 	enableTweak = [[tweakSettings objectForKey:@"enableTweak"] boolValue];
 //	global quick actions:
@@ -146,7 +146,14 @@ void TweakSettingsChanged() {
 			continue;
 		}
 //	every other app quick actions and also quick actions made by other tweaks
-		[shortcutItems addObject:shortcutItem];
+		BOOL appSpecificQuickActions = [[tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] boolValue];
+		if ( !enableTweak ) {
+			[shortcutItems addObject:shortcutItem];
+		} else if ( [tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] == nil ) {
+			[shortcutItems addObject:shortcutItem];
+		} else if ( enableTweak && appSpecificQuickActions ) {
+			[shortcutItems addObject:shortcutItem];
+		}
 	}
 	if ( enableTweak && copyBundleID ) {
 		if (bundleId) {

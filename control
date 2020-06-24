@@ -1,5 +1,5 @@
 Package: com.tomaszpoliszuk.homescreenquickactions
-Depends: firmware (>= 13.0), mobilesubstrate, preferenceloader
+Depends: firmware (>= 13.0), mobilesubstrate, preferenceloader, applist
 Name: Home Screen Quick Actions
 Version: 1.2.1
 Architecture: iphoneos-arm
