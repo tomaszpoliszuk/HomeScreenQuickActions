@@ -16,6 +16,7 @@
 - Cancel Download
 - Prioritize Download
 - Hide App (This option is only for devices with floating dock enabled, on stock devices it is enabled only on iPads)
+- App specific Quick Actions
 
 *Turn On/Turn Off additional Home Screen Quick Actions:*
 - Copy Bundle ID
