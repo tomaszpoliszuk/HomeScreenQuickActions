@@ -179,20 +179,26 @@
 		{
 			cell = PSButtonCell;
 			label = "Source Code";
-			action = TweakSourceCode;
+			action = sourceCode;
 			icon = "/Library/PreferenceBundles/HomeScreenQuickActionsSettings.bundle/icons/code.png";
 		},
 		{
 			cell = PSButtonCell;
-			label = "Report Issue (on GitHub)";
-			action = TweakReportIssue;
+			label = "Report Issue @ GitHub";
+			action = reportIssueAtGithub;
 			icon = "/Library/PreferenceBundles/HomeScreenQuickActionsSettings.bundle/icons/bug.png";
 		},
 		{
 			cell = PSButtonCell;
-			label = "Tomasz Poliszuk @ GitHub";
-			action = TomaszPoliszukOnGithub;
+			label = "Tomasz Poliszuk @ Github";
+			action = TomaszPoliszukAtGithub;
 			icon = "/Library/PreferenceBundles/HomeScreenQuickActionsSettings.bundle/icons/github.png";
+		},
+		{
+			cell = PSButtonCell;
+			label = "Tomasz Poliszuk @ Twitter";
+			action = TomaszPoliszukAtTwitter;
+			icon = "/Library/PreferenceBundles/HomeScreenQuickActionsSettings.bundle/icons/twitter.png";
 		}
 	);
 }
