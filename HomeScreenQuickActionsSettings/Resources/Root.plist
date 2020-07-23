@@ -97,20 +97,6 @@
 		},
 		{
 			cell = PSGroupCell;
-			label = "Widget:";
-		},
-		{
-			cell = PSSwitchCell;
-			cellClass = HomeScreenQuickActionsSwitchTableCell;
-			key = "quickActionWidget";
-			label = "Widget";
-			sublabel = "App Quick Action";
-			default = false;
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
 			label = "Share App:";
 		},
 		{
@@ -297,6 +283,7 @@
 		{
 			cell = PSGroupCell;
 			label = "Copy Bundle ID:";
+			footerText = "type 'bundleID' to display id of application";
 		},
 		{
 			cell = PSSwitchCell;
@@ -323,6 +310,32 @@
 			key = "copyBundleIDSubtitle";
 			default = "bundleID";
 			placeholder = "bundleID";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Widget:";
+		},
+		{
+			cell = PSSwitchCell;
+			cellClass = HomeScreenQuickActionsSwitchTableCell;
+			key = "quickActionWidget";
+			label = "Widget";
+			sublabel = "App Quick Action";
+			default = false;
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Quick Actions Order";
+		},
+		{
+			cell = PSSwitchCell;
+			default = false;
+			key = "reverseQuickActionsOrder";
+			label = "Reverse Quick Actions Order";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},

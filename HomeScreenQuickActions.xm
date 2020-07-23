@@ -59,6 +59,8 @@ static BOOL copyBundleID;
 
 static int uiStyle;
 
+static BOOL reverseQuickActionsOrder;
+
 //	global quick actions:
 static NSString *quickActionEditHomeScreenTitle = @"";
 static NSString *quickActionEditHomeScreenSubtitle = @"";
@@ -108,7 +110,7 @@ void TweakSettingsChanged() {
 
 	uiStyle = [[tweakSettings valueForKey:@"uiStyle"] integerValue];
 
-
+	reverseQuickActionsOrder = [[tweakSettings objectForKey:@"reverseQuickActionsOrder"] boolValue];
 
 //	global quick actions:
 	quickActionEditHomeScreenTitle = [tweakSettings objectForKey:@"quickActionEditHomeScreenTitle"];
@@ -302,6 +304,14 @@ void TweakSettingsChanged() {
 %end
 
 %hook _UIContextMenuActionsListView
+- (bool)reversesActionOrder {
+	bool origValue = %orig;
+	if ( enableTweak ) {
+		return reverseQuickActionsOrder;
+	} else {
+		return origValue;
+	}
+}
 %new
 -(void)updateTraitOverride {
 	if ( enableTweak && uiStyle > 0) {
