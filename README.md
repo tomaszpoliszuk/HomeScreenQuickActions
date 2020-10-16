@@ -1,33 +1,40 @@
-*Control Home Screen Quick Actions on your device*
+# Home Screen Quick Actions
+Control Home Screen Quick Actions on your device
 
-**Requires iOS greater or equal to 13**
+## Compatibility
+iOS 13 and above
 
-**Possibilities:**
+## What you can do with this tweak:
 
-*control UI Style of Home Screen Quick Actions*
+* Select what Home Screen Quick Actions should be visible:
+	* Edit Home Screen
+	* Delete App (iOS13)
+	* Remove App (iOS14)
+	* Share App
+	* Add To Home Screen
+	* Hide App (visible in iPad Dock recents/suggestions)
+	* Prioritize Download (visible during downloading app)
+	* Pause Download (visible during downloading app)
+	* Cancel Download (visible during downloading app)
+	* Hide Folder (iOS14)
+	* Rename Folder
+	* Remove Widget (iOS14)
+	* Edit Widget (iOS14)
+	* Edit Stack Widget (iOS14)
+	* Widgets in Quick Actions (iOS13)
+	* Copy Bundle ID (Custom Action)
+	* App Specific Quick Actions
 
-*reverse order of Home Screen Quick Actions*
+* Additional options
+	* Control UI Style of Home Screen Quick Actions
+	* Rename Actions (change titles and add/change subtitles)
+	* Show/Hide Separators (currently doesn't affect thic separators on iOS 14)
+	* Reverse Quick Actions Order
 
-*change titles and add/change subtitles*
+Configure options from Settings
 
-*Turn On/Turn Off default Home Screen Quick Actions:*
-- Edit Home Screen
-- Rename
-- Share App
-- Delete App
-- Pause Download
-- Cancel Download
-- Prioritize Download
-- Hide App (This option is only for devices with floating dock enabled, on stock devices it is enabled only on iPads)
-- App specific Quick Actions
-- Widget
-
-*Turn On/Turn Off additional Home Screen Quick Actions:*
-- Copy Bundle ID
-
-Configure options from Settings.
-
-![settings](screenshots/homescreenquickactions1.jpg)
+![settings](screenshots/homescreenquickactions1.png)
 ![dock](screenshots/homescreenquickactions2.jpg)
 ![folder](screenshots/homescreenquickactions3.jpg)
 ![notes](screenshots/homescreenquickactions4.jpg)
+![widget](screenshots/homescreenquickactions5.png)

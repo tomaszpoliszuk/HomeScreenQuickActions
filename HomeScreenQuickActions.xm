@@ -1,139 +1,185 @@
-@interface SBSApplicationShortcutItem : NSObject
-@property (nonatomic, copy) NSString *localizedSubtitle;
-@property (nonatomic, copy) NSString *localizedTitle;
-@property (nonatomic, copy) NSString *type;
-- (void)setIcon:(SBSApplicationShortcutItem *)arg1;
+@interface UIView (HomeScreenQuickActions)
+-(id)_viewControllerForAncestor;
+-(void)setOverrideUserInterfaceStyle:(NSInteger)style;
 @end
-
-@interface PTSettings : NSObject
-@end
-
-@interface SBHHomeScreenSettings : PTSettings {}
-- (bool)showWidgets;
-@end
-
 
 @interface SBIconView : UIView
 @property (nonatomic, readonly, copy) NSString *applicationBundleIdentifierForShortcuts;
 @end
 
-@interface UIView (HomeScreenQuickActions)
--(void)setOverrideUserInterfaceStyle:(NSInteger)style;
+@interface SBSApplicationShortcutItem : NSObject
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *localizedTitle;
+@property (nonatomic, copy) NSString *localizedSubtitle;
 @end
 
 @interface UIInterfaceActionGroupView : UIView
--(void)updateTraitOverride;
+@end
+@interface _UIContextMenuActionsListView : UIInterfaceActionGroupView
 @end
 
-@interface _UIContextMenuActionsListView : UIInterfaceActionGroupView
--(void)updateTraitOverride;
+@interface _UIInterfaceActionBlankSeparatorView : UIView
+@end
+
+@interface _UIInterfaceActionVibrantSeparatorView : UIView
+@end
+
+@interface _UIContextMenuActionsListSeparatorView : UICollectionReusableView
 @end
 
 @interface SBHIconViewContextMenuWrapperViewController : UIViewController
--(void)updateTraitOverride;
 @end
 
+static NSOperatingSystemVersion iOSversion = [[NSProcessInfo processInfo] operatingSystemVersion];
+
 NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
-NSUserDefaults *tweakSettings;
+
+NSUserDefaults *tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
 
 static id bundleId;
-//	enable tweak
-static BOOL enableTweak;
-//	global quick actions:
-static BOOL quickActionEditHomeScreen;
-//	folders quick actions:
-static BOOL quickActionRenameFolder;
-//	app quick actions
-static BOOL quickActionWidget;
-//	app store apps quick actions:
-static BOOL quickActionShare;
-static BOOL quickActionDelete;
-//	app quick actions visible while app is downloading from app store
-static BOOL quickActionPauseDownload;
-static BOOL quickActionCancelDownload;
-static BOOL quickActionPrioritizeDownload;
-//	dock app quick actions
-static BOOL quickActionHideApp;
-//	new actions
-static BOOL copyBundleID;
+
+static bool enableTweak;
 
 static int uiStyle;
 
-static BOOL reverseQuickActionsOrder;
+static bool showSeparators;
 
-//	global quick actions:
+static bool reverseQuickActionsOrder;
+
+static bool quickActionEditHomeScreen;
 static NSString *quickActionEditHomeScreenTitle = @"";
 static NSString *quickActionEditHomeScreenSubtitle = @"";
-//	folders quick actions:
+
+static bool quickActionRenameFolder;
 static NSString *quickActionRenameFolderTitle = @"";
 static NSString *quickActionRenameFolderSubtitle = @"";
-//	app store apps quick actions:
+
+static bool quickActionShare;
 static NSString *quickActionShareTitle = @"";
 static NSString *quickActionShareSubtitle = @"";
-static NSString *quickActionDeleteTitle = @"";
-static NSString *quickActionDeleteSubtitle = @"";
-//	app quick actions visible while app is downloading from app store
-static NSString *quickActionPauseDownloadTitle = @"";
-static NSString *quickActionPauseDownloadSubtitle = @"";
-static NSString *quickActionCancelDownloadTitle = @"";
-static NSString *quickActionCancelDownloadSubtitle = @"";
+
+//	visible during downloading app
+static bool quickActionPrioritizeDownload;
 static NSString *quickActionPrioritizeDownloadTitle = @"";
 static NSString *quickActionPrioritizeDownloadSubtitle = @"";
-//	dock app quick actions
+
+static bool quickActionPauseDownload;
+static NSString *quickActionPauseDownloadTitle = @"";
+static NSString *quickActionPauseDownloadSubtitle = @"";
+
+static bool quickActionCancelDownload;
+static NSString *quickActionCancelDownloadTitle = @"";
+static NSString *quickActionCancelDownloadSubtitle = @"";
+
+//	visible in iPad Dock recents/suggestions
+static bool quickActionHideApp;
 static NSString *quickActionHideAppTitle = @"";
 static NSString *quickActionHideAppSubtitle = @"";
-//	new actions
-static NSString *copyBundleIDTitle = @"Copy Bundle ID";
-static NSString *copyBundleIDSubtitle = @"bundleID";
+
+//	iOS13
+static bool quickActionWidgets;
+static bool quickActionDeleteApp;
+static NSString *quickActionDeleteAppTitle = @"";
+static NSString *quickActionDeleteAppSubtitle = @"";
+
+//	iOS14
+static bool quickActionHideFolder;
+static NSString *quickActionHideFolderTitle = @"";
+static NSString *quickActionHideFolderSubtitle = @"";
+
+static bool quickActionRemoveApp;
+static NSString *quickActionRemoveAppTitle = @"";
+static NSString *quickActionRemoveAppSubtitle = @"";
+
+static bool quickActionRemoveWidget;
+static NSString *quickActionRemoveWidgetTitle = @"";
+static NSString *quickActionRemoveWidgetSubtitle = @"";
+
+static bool quickActionConfigureWidget;
+static NSString *quickActionConfigureWidgetTitle = @"";
+static NSString *quickActionConfigureWidgetSubtitle = @"";
+
+static bool quickActionConfigureStack;
+static NSString *quickActionConfigureStackTitle = @"";
+static NSString *quickActionConfigureStackSubtitle = @"";
+
+static bool quickActionAddToHomeScreen;
+static NSString *quickActionAddToHomeScreenTitle = @"";
+static NSString *quickActionAddToHomeScreenSubtitle = @"";
+
+//	Custom Actions
+static bool copyBundleID;
+static NSString *copyBundleIDTitle = @"";
+static NSString *copyBundleIDSubtitle = @"";
 
 void TweakSettingsChanged() {
-	tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
-//	enable tweak
-	enableTweak = [[tweakSettings objectForKey:@"enableTweak"] boolValue];
-//	global quick actions:
-	quickActionEditHomeScreen = [[tweakSettings objectForKey:@"quickActionEditHomeScreen"] boolValue];
-//	folders quick actions:
-	quickActionRenameFolder = [[tweakSettings objectForKey:@"quickActionRenameFolder"] boolValue];
-//	app quick actions
-	quickActionWidget = [[tweakSettings objectForKey:@"quickActionWidget"] boolValue];
-//	app store apps quick actions:
-	quickActionShare = [[tweakSettings objectForKey:@"quickActionShare"] boolValue];
-	quickActionDelete = [[tweakSettings objectForKey:@"quickActionDelete"] boolValue];
-//	app quick actions visible while app is downloading from app store
-	quickActionPauseDownload = [[tweakSettings objectForKey:@"quickActionPauseDownload"] boolValue];
-	quickActionCancelDownload = [[tweakSettings objectForKey:@"quickActionCancelDownload"] boolValue];
-	quickActionPrioritizeDownload = [[tweakSettings objectForKey:@"quickActionPrioritizeDownload"] boolValue];
-//	dock app quick actions
-	quickActionHideApp = [[tweakSettings objectForKey:@"quickActionHideApp"] boolValue];
 
-	copyBundleID = [[tweakSettings objectForKey:@"copyBundleID"] boolValue];
+	enableTweak = [([tweakSettings objectForKey:@"enableTweak"] ?: @(YES)) boolValue];
 
-	uiStyle = [[tweakSettings valueForKey:@"uiStyle"] integerValue];
+	uiStyle = [([tweakSettings valueForKey:@"uiStyle"] ?: @(999)) integerValue];
 
-	reverseQuickActionsOrder = [[tweakSettings objectForKey:@"reverseQuickActionsOrder"] boolValue];
+	showSeparators = [([tweakSettings objectForKey:@"showSeparators"] ?: @(YES)) boolValue];
 
-//	global quick actions:
+	reverseQuickActionsOrder = [([tweakSettings objectForKey:@"reverseQuickActionsOrder"] ?: @(NO)) boolValue];
+
+	quickActionEditHomeScreen = [([tweakSettings objectForKey:@"quickActionEditHomeScreen"] ?: @(YES)) boolValue];
 	quickActionEditHomeScreenTitle = [tweakSettings objectForKey:@"quickActionEditHomeScreenTitle"];
 	quickActionEditHomeScreenSubtitle = [tweakSettings objectForKey:@"quickActionEditHomeScreenSubtitle"];
-//	folders quick actions:
+
+	quickActionRenameFolder = [([tweakSettings objectForKey:@"quickActionRenameFolder"] ?: @(YES)) boolValue];
 	quickActionRenameFolderTitle = [tweakSettings objectForKey:@"quickActionRenameFolderTitle"];
 	quickActionRenameFolderSubtitle = [tweakSettings objectForKey:@"quickActionRenameFolderSubtitle"];
-//	app store apps quick actions:
+
+	quickActionShare = [([tweakSettings objectForKey:@"quickActionShare"] ?: @(NO)) boolValue];
 	quickActionShareTitle = [tweakSettings objectForKey:@"quickActionShareTitle"];
 	quickActionShareSubtitle = [tweakSettings objectForKey:@"quickActionShareSubtitle"];
-	quickActionDeleteTitle = [tweakSettings objectForKey:@"quickActionDeleteTitle"];
-	quickActionDeleteSubtitle = [tweakSettings objectForKey:@"quickActionDeleteSubtitle"];
-//	app quick actions visible while app is downloading from app store
-	quickActionPauseDownloadTitle = [tweakSettings objectForKey:@"quickActionPauseDownloadTitle"];
-	quickActionPauseDownloadSubtitle = [tweakSettings objectForKey:@"quickActionPauseDownloadSubtitle"];
-	quickActionCancelDownloadTitle = [tweakSettings objectForKey:@"quickActionCancelDownloadTitle"];
-	quickActionCancelDownloadSubtitle = [tweakSettings objectForKey:@"quickActionCancelDownloadSubtitle"];
+
+	quickActionPrioritizeDownload = [([tweakSettings objectForKey:@"quickActionPrioritizeDownload"] ?: @(YES)) boolValue];
 	quickActionPrioritizeDownloadTitle = [tweakSettings objectForKey:@"quickActionPrioritizeDownloadTitle"];
 	quickActionPrioritizeDownloadSubtitle = [tweakSettings objectForKey:@"quickActionPrioritizeDownloadSubtitle"];
-//	dock app quick actions
+
+	quickActionPauseDownload = [([tweakSettings objectForKey:@"quickActionPauseDownload"] ?: @(YES)) boolValue];
+	quickActionPauseDownloadTitle = [tweakSettings objectForKey:@"quickActionPauseDownloadTitle"];
+	quickActionPauseDownloadSubtitle = [tweakSettings objectForKey:@"quickActionPauseDownloadSubtitle"];
+
+	quickActionCancelDownload = [([tweakSettings objectForKey:@"quickActionCancelDownload"] ?: @(YES)) boolValue];
+	quickActionCancelDownloadTitle = [tweakSettings objectForKey:@"quickActionCancelDownloadTitle"];
+	quickActionCancelDownloadSubtitle = [tweakSettings objectForKey:@"quickActionCancelDownloadSubtitle"];
+
+	quickActionHideApp = [([tweakSettings objectForKey:@"quickActionHideApp"] ?: @(YES)) boolValue];
 	quickActionHideAppTitle = [tweakSettings objectForKey:@"quickActionHideAppTitle"];
 	quickActionHideAppSubtitle = [tweakSettings objectForKey:@"quickActionHideAppSubtitle"];
-//	new actions
+
+	quickActionWidgets = [([tweakSettings objectForKey:@"quickActionWidgets"] ?: @(NO)) boolValue];
+	quickActionDeleteApp = [([tweakSettings objectForKey:@"quickActionDeleteApp"] ?: @(YES)) boolValue];
+	quickActionDeleteAppTitle = [tweakSettings objectForKey:@"quickActionDeleteAppTitle"];
+	quickActionDeleteAppSubtitle = [tweakSettings objectForKey:@"quickActionDeleteAppSubtitle"];
+
+	quickActionHideFolder = [([tweakSettings objectForKey:@"quickActionHideFolder"] ?: @(YES)) boolValue];
+	quickActionHideFolderTitle = [tweakSettings objectForKey:@"quickActionHideFolderTitle"];
+	quickActionHideFolderSubtitle = [tweakSettings objectForKey:@"quickActionHideFolderSubtitle"];
+
+	quickActionRemoveApp = [([tweakSettings objectForKey:@"quickActionRemoveApp"] ?: @(YES)) boolValue];
+	quickActionRemoveAppTitle = [tweakSettings objectForKey:@"quickActionRemoveAppTitle"];
+	quickActionRemoveAppSubtitle = [tweakSettings objectForKey:@"quickActionRemoveAppSubtitle"];
+
+	quickActionRemoveWidget = [([tweakSettings objectForKey:@"quickActionRemoveWidget"] ?: @(YES)) boolValue];
+	quickActionRemoveWidgetTitle = [tweakSettings objectForKey:@"quickActionRemoveWidgetTitle"];
+	quickActionRemoveWidgetSubtitle = [tweakSettings objectForKey:@"quickActionRemoveWidgetSubtitle"];
+
+	quickActionConfigureWidget = [([tweakSettings objectForKey:@"quickActionConfigureWidget"] ?: @(YES)) boolValue];
+	quickActionConfigureWidgetTitle = [tweakSettings objectForKey:@"quickActionConfigureWidgetTitle"];
+	quickActionConfigureWidgetSubtitle = [tweakSettings objectForKey:@"quickActionConfigureWidgetSubtitle"];
+
+	quickActionConfigureStack = [([tweakSettings objectForKey:@"quickActionConfigureStack"] ?: @(YES)) boolValue];
+	quickActionConfigureStackTitle = [tweakSettings objectForKey:@"quickActionConfigureStackTitle"];
+	quickActionConfigureStackSubtitle = [tweakSettings objectForKey:@"quickActionConfigureStackSubtitle"];
+
+	quickActionAddToHomeScreen = [([tweakSettings objectForKey:@"quickActionAddToHomeScreen"] ?: @(YES)) boolValue];
+	quickActionAddToHomeScreenTitle = [tweakSettings objectForKey:@"quickActionAddToHomeScreenTitle"];
+	quickActionAddToHomeScreenSubtitle = [tweakSettings objectForKey:@"quickActionAddToHomeScreenSubtitle"];
+
+	copyBundleID = [([tweakSettings objectForKey:@"copyBundleID"] ?: @(YES)) boolValue];
 	copyBundleIDTitle = [tweakSettings objectForKey:@"copyBundleIDTitle"];
 	copyBundleIDSubtitle = [tweakSettings objectForKey:@"copyBundleIDSubtitle"];
 }
@@ -145,144 +191,222 @@ void TweakSettingsChanged() {
 		bundleId = [self applicationBundleIdentifierForShortcuts];
 	}
 	NSMutableArray *shortcutItems = [[NSMutableArray alloc] init];
-	for (SBSApplicationShortcutItem *shortcutItem in arg1) {
-//	global quick actions:
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.rearrange-icons"] ) {
-			if ( quickActionEditHomeScreen ) {
+	if ( enableTweak ) {
+		for (SBSApplicationShortcutItem *shortcutItem in arg1) {
+//	Apple uses both prefixes for system shortcuts:
+//	- com.apple.springboardhome.application-shotcut-item - with typo "shotcut" name
+//	- com.apple.springboardhome.application-shortcut-item - with correct "shortcut" name
+//	- so let's detect both of them in one run:
+			if ( [shortcutItem.type hasPrefix:@"com.apple.springboardhome.application-"] ) {
+				if ( [shortcutItem.type hasSuffix:@"rearrange-icons"] ) {
+					if ( quickActionEditHomeScreen ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionEditHomeScreenTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionEditHomeScreenTitle;
+						}
+						if ( quickActionEditHomeScreenSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionEditHomeScreenSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"rename-folder"] ) {
+					if ( quickActionRenameFolder ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionRenameFolderTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionRenameFolderTitle;
+						}
+						if ( quickActionRenameFolderSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionRenameFolderSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"hide-folder"] ) {
+					if ( quickActionHideFolder ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionHideFolderTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionHideFolderTitle;
+						}
+						if ( quickActionHideFolderSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionHideFolderSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"item.share"] ) {
+					if ( quickActionShare ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionShareTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionShareTitle;
+						}
+						if ( quickActionShareSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionShareSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"delete-app"] ) {
+					if ( quickActionDeleteApp ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionDeleteAppTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionDeleteAppTitle;
+						}
+						if ( quickActionDeleteAppSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionDeleteAppSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"remove-app"] ) {
+					if ( quickActionRemoveApp ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionRemoveAppTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionRemoveAppTitle;
+						}
+						if ( quickActionRemoveAppSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionRemoveAppSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"pause-download"] ) {
+					if ( quickActionPauseDownload ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionPauseDownloadTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionPauseDownloadTitle;
+						}
+						if ( quickActionPauseDownloadSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionPauseDownloadSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"cancel-download"] ) {
+					if ( quickActionCancelDownload ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionCancelDownloadTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionCancelDownloadTitle;
+						}
+						if ( quickActionCancelDownloadSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionCancelDownloadSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"prioritize-download"] ) {
+					if ( quickActionPrioritizeDownload ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionPrioritizeDownloadTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionPrioritizeDownloadTitle;
+						}
+						if ( quickActionPrioritizeDownloadSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionPrioritizeDownloadSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"hide-app"] || [shortcutItem.type hasSuffix:@"hide-app-suggestion"] ) {
+					if ( quickActionHideApp ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionHideAppTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionHideAppTitle;
+						}
+						if ( quickActionHideAppSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionHideAppSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"configure-stack"] ) {
+					if ( quickActionConfigureStack ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionConfigureStackTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionConfigureStackTitle;
+						}
+						if ( quickActionConfigureStackSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionConfigureStackSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"configure-widget"] ) {
+					if ( quickActionConfigureWidget ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionConfigureWidgetTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionConfigureWidgetTitle;
+						}
+						if ( quickActionConfigureWidgetSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionConfigureWidgetSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"remove-widget"] ) {
+					if ( quickActionRemoveWidget ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionRemoveWidgetTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionRemoveWidgetTitle;
+						}
+						if ( quickActionRemoveWidgetSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionRemoveWidgetSubtitle;
+						}
+					}
+					continue;
+				}
+				if ( [shortcutItem.type hasSuffix:@"add-to-home-screen"] ) {
+					if ( quickActionAddToHomeScreen ) {
+						[shortcutItems addObject: shortcutItem];
+						if ( quickActionAddToHomeScreenTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionAddToHomeScreenTitle;
+						}
+						if ( quickActionAddToHomeScreenSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionAddToHomeScreenSubtitle;
+						}
+					}
+					continue;
+				}
+			}
+//	every other app quick actions but bundled - disable all or none of them
+			bool appSpecificQuickActions = [[tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] boolValue];
+			if ( [tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] == nil ) {
+				NSLog(@"[HomeScreenQuickActions] that's nil");
+				NSLog(@"[HomeScreenQuickActions] that's nil bundleId = %@", bundleId);
+				[shortcutItems addObject: shortcutItem];
+			} else if ( appSpecificQuickActions ) {
+				NSLog(@"[HomeScreenQuickActions] that's appSpecificQuickActions");
+				NSLog(@"[HomeScreenQuickActions] that's appSpecificQuickActions bundleId = %@", bundleId);
 				[shortcutItems addObject: shortcutItem];
 			}
-			if ( quickActionEditHomeScreenTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionEditHomeScreenTitle;
-			}
-			if ( quickActionEditHomeScreenSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionEditHomeScreenSubtitle;
-			}
-			continue;
 		}
-//	folders quick actions:
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.rename-folder"] ) {
-			if ( quickActionRenameFolder ) {
-				[shortcutItems addObject: shortcutItem];
+		if ( copyBundleID && bundleId ) {
+			SBSApplicationShortcutItem *copyBundleIDAction = [%c(SBSApplicationShortcutItem) alloc];
+			copyBundleIDAction.type = @"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id";
+			if ( copyBundleIDTitle.length > 0 ) {
+				copyBundleIDAction.localizedTitle = copyBundleIDTitle;
+			} else {
+				copyBundleIDAction.localizedTitle = @"Copy Bundle ID";
 			}
-			if ( quickActionRenameFolderTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionRenameFolderTitle;
+			if ( copyBundleIDSubtitle.length > 0 ) {
+				copyBundleIDAction.localizedSubtitle = copyBundleIDSubtitle;
+			} else {
+				copyBundleIDAction.localizedSubtitle = bundleId;
 			}
-			if ( quickActionRenameFolderSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionRenameFolderSubtitle;
-			}
-			continue;
+			[shortcutItems addObject: copyBundleIDAction];
 		}
-//	app store apps quick actions:
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.share"] ) {
-			if ( quickActionShare ) {
-				[shortcutItems addObject: shortcutItem];
-			}
-			if ( quickActionShareTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionShareTitle;
-			}
-			if ( quickActionShareSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionShareSubtitle;
-			}
-			continue;
-		}
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.delete-app"] ) {
-			if ( quickActionDelete ) {
-				[shortcutItems addObject: shortcutItem];
-			}
-			if ( quickActionDeleteTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionDeleteTitle;
-			}
-			if ( quickActionDeleteSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionDeleteSubtitle;
-			}
-			continue;
-		}
-//	app quick actions visible while app is downloading from app store
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.pause-download"] ) {
-			if ( quickActionPauseDownload ) {
-				[shortcutItems addObject: shortcutItem];
-			}
-			if ( quickActionPauseDownloadTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionPauseDownloadTitle;
-			}
-			if ( quickActionPauseDownloadSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionPauseDownloadSubtitle;
-			}
-			continue;
-		}
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.cancel-download"] ) {
-			if ( quickActionCancelDownload ) {
-				[shortcutItems addObject: shortcutItem];
-			}
-			if ( quickActionCancelDownloadTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionCancelDownloadTitle;
-			}
-			if ( quickActionCancelDownloadSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionCancelDownloadSubtitle;
-			}
-			continue;
-		}
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shortcut-item.prioritize-download"] ) {
-			if ( quickActionPrioritizeDownload ) {
-				[shortcutItems addObject: shortcutItem];
-			}
-			if ( quickActionPrioritizeDownloadTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionPrioritizeDownloadTitle;
-			}
-			if ( quickActionPrioritizeDownloadSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionPrioritizeDownloadSubtitle;
-			}
-			continue;
-		}
-//	dock app quick actions
-		if ( enableTweak && [shortcutItem.type isEqual: @"com.apple.springboardhome.application-shotcut-item.hide-app"] ) {
-			if ( quickActionHideApp ) {
-				[shortcutItems addObject: shortcutItem];
-			}
-			if ( quickActionHideAppTitle.length > 0 ) {
-				shortcutItem.localizedTitle = quickActionHideAppTitle;
-			}
-			if ( quickActionHideAppSubtitle.length > 0 ) {
-				shortcutItem.localizedSubtitle = quickActionHideAppSubtitle;
-			}
-			continue;
-		}
-//	every other app quick actions and also quick actions made by other tweaks
-		BOOL appSpecificQuickActions = [[tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] boolValue];
-		if ( !enableTweak ) {
-			[shortcutItems addObject:shortcutItem];
-		} else if ( [tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] == nil ) {
-			[shortcutItems addObject:shortcutItem];
-		} else if ( enableTweak && appSpecificQuickActions ) {
-			[shortcutItems addObject:shortcutItem];
-		}
+		%orig(shortcutItems);
+	} else {
+		%orig;
 	}
-	if ( enableTweak && copyBundleID ) {
-		if (bundleId) {
-			SBSApplicationShortcutItem *bundleIdAction = [%c(SBSApplicationShortcutItem) alloc];
-			bundleIdAction.type = @"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id";
-			if ( [copyBundleIDTitle isEqual:@"bundleID"] ) {
-				bundleIdAction.localizedTitle = bundleId;
-			} else if ( copyBundleIDTitle.length > 0 ) {
-				bundleIdAction.localizedTitle = copyBundleIDTitle;
-			}
-			if ( [copyBundleIDSubtitle isEqual:@"bundleID"] ) {
-				bundleIdAction.localizedSubtitle = bundleId;
-			} else if ( copyBundleIDSubtitle.length > 0 ) {
-				bundleIdAction.localizedSubtitle = copyBundleIDSubtitle;
-			}
-			[shortcutItems addObject: bundleIdAction];
-		}
-	}
-	%orig(shortcutItems);
+
 }
 - (bool)shouldActivateApplicationShortcutItem:(SBSApplicationShortcutItem*)item atIndex:(unsigned long long)arg2 {
+	bool origValue = %orig;
 	NSString* bundleId;
-	if([self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)]) {
+	if( [self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)] ) {
 		bundleId = [self applicationBundleIdentifierForShortcuts];
 	}
-	BOOL origValue = %orig;
-	if([[item type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id"]) {
+	if( [[item type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id"] ) {
 		[UIPasteboard generalPasteboard].string = bundleId;
 		return NO;
 	} else {
@@ -296,7 +420,7 @@ void TweakSettingsChanged() {
 -(bool)showWidgets {
 	bool origValue = %orig;
 	if ( enableTweak ) {
-		return quickActionWidget;
+		return quickActionWidgets;
 	} else {
 		return origValue;
 	}
@@ -314,12 +438,12 @@ void TweakSettingsChanged() {
 }
 %new
 -(void)updateTraitOverride {
-	if ( enableTweak && uiStyle > 0) {
+	if ( enableTweak && uiStyle != 999 ) {
 		[self setOverrideUserInterfaceStyle:uiStyle];
 	}
 }
 -(void)didMoveToWindow {
-	if ( enableTweak && uiStyle > 0) {
+	if ( enableTweak && uiStyle != 999 ) {
 		[self setOverrideUserInterfaceStyle:uiStyle];
 	}
 	%orig;
@@ -327,35 +451,119 @@ void TweakSettingsChanged() {
 %end
 
 %hook SBHIconViewContextMenuWrapperViewController
-%new
--(void)updateTraitOverride {
-	if ( enableTweak && uiStyle > 0) {
-		[self setOverrideUserInterfaceStyle:uiStyle];
-	}
-}
--(id)init {
-	if ((self = %orig)) {
-		if ( enableTweak && uiStyle > 0) {
-			[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateTraitOverride) name:@"com.tomaszpoliszuk.selectiveuistyle.override" object:nil];
-			[self setOverrideUserInterfaceStyle:uiStyle];
-		}
-	}
-	return self;
-}
 -(void)viewDidLoad {
-	if ( enableTweak && uiStyle > 0) {
+	if ( enableTweak && uiStyle != 999 ) {
 		[self setOverrideUserInterfaceStyle:uiStyle];
 	}
 	%orig;
 }
 %end
 
+%hook _UIInterfaceActionVibrantSeparatorView
+- (bool)isHidden {
+	bool origValue = %orig;
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
+		if (
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+		) {
+			return YES;
+		}
+	}
+	return origValue;
+}
+- (void)setHidden:(bool)arg1 {
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
+		if (
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+		) {
+			arg1 = YES;
+		}
+	}
+	%orig;
+}
+%end
+
+%hook _UIContextMenuActionsListSeparatorView
+- (bool)isHidden {
+	bool origValue = %orig;
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 14 ) {
+		if (
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+		) {
+			return YES;
+		}
+	}
+	return origValue;
+}
+- (void)setHidden:(bool)arg1 {
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 14 ) {
+		if (
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+		) {
+			arg1 = YES;
+		}
+	}
+	%orig;
+}
+%end
+
+%hook _UIInterfaceActionBlankSeparatorView
+- (bool)isHidden {
+	bool origValue = %orig;
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
+		if (
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+		) {
+			return YES;
+		}
+	}
+	return origValue;
+}
+- (void)setHidden:(bool)arg1 {
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
+		if (
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+		) {
+			arg1 = YES;
+		}
+	}
+	%orig;
+}
+%end
 
 %ctor {
-// Found in https://github.com/EthanRDoesMC/Dawn/commit/847cb5192dae9138a893e394da825e86be561a6b
-	if ( [[[[NSProcessInfo processInfo] arguments] objectAtIndex:0] containsString:@"SpringBoard.app"] ) {
-		TweakSettingsChanged();
-		CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)TweakSettingsChanged, CFSTR("com.tomaszpoliszuk.homescreenquickactions.settingschanged"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
-		%init; // == %init(_ungrouped);
-	}
+	TweakSettingsChanged();
+	CFNotificationCenterAddObserver(
+		CFNotificationCenterGetDarwinNotifyCenter(),
+		NULL,
+		(CFNotificationCallback)TweakSettingsChanged,
+		CFSTR("com.tomaszpoliszuk.homescreenquickactions.settingschanged"),
+		NULL,
+		CFNotificationSuspensionBehaviorDeliverImmediately
+	);
+	%init;
 }
