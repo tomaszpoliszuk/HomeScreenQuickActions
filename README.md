@@ -28,7 +28,7 @@ iOS 13 and above
 * Additional options
 	* Control UI Style of Home Screen Quick Actions
 	* Rename Actions (change titles and add/change subtitles)
-	* Show/Hide Separators (currently doesn't affect thic separators on iOS 14)
+	* Show/Hide Separators
 	* Reverse Quick Actions Order
 
 Configure options from Settings

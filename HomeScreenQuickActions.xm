@@ -16,6 +16,9 @@
  */
 
 
+#define userSettingsFile @"/var/mobile/Library/Preferences/com.tomaszpoliszuk.homescreenquickactions.plist"
+#define packageName "com.tomaszpoliszuk.homescreenquickactions"
+
 @interface UIView (HomeScreenQuickActions)
 -(id)_viewControllerForAncestor;
 @end
@@ -53,9 +56,7 @@
 
 static NSOperatingSystemVersion iOSversion = [[NSProcessInfo processInfo] operatingSystemVersion];
 
-NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
-
-NSUserDefaults *tweakSettings = [[NSUserDefaults alloc] initWithSuiteName:domainString];
+NSMutableDictionary *tweakSettings;
 
 static id bundleId;
 
@@ -130,7 +131,29 @@ static bool copyBundleID;
 static NSString *copyBundleIDTitle = @"";
 static NSString *copyBundleIDSubtitle = @"";
 
-void TweakSettingsChanged() {
+void SettingsChanged() {
+	CFArrayRef keyList = CFPreferencesCopyKeyList(
+		CFSTR(packageName),
+		kCFPreferencesCurrentUser,
+		kCFPreferencesAnyHost
+	);
+	if(keyList) {
+		tweakSettings = (
+			NSMutableDictionary *)CFBridgingRelease(
+			CFPreferencesCopyMultiple(
+				keyList,
+				CFSTR(packageName),
+				kCFPreferencesCurrentUser,
+				kCFPreferencesAnyHost
+			)
+		);
+		CFRelease(keyList);
+	} else {
+		tweakSettings = nil;
+	}
+	if (!tweakSettings) {
+		tweakSettings = [NSMutableDictionary dictionaryWithContentsOfFile:userSettingsFile];
+	}
 
 	enableTweak = [([tweakSettings objectForKey:@"enableTweak"] ?: @(YES)) boolValue];
 
@@ -197,6 +220,10 @@ void TweakSettingsChanged() {
 	copyBundleID = [([tweakSettings objectForKey:@"copyBundleID"] ?: @(YES)) boolValue];
 	copyBundleIDTitle = [tweakSettings objectForKey:@"copyBundleIDTitle"];
 	copyBundleIDSubtitle = [tweakSettings objectForKey:@"copyBundleIDSubtitle"];
+}
+
+static void receivedNotification(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+	SettingsChanged();
 }
 
 %hook SBIconView
@@ -484,8 +511,7 @@ void TweakSettingsChanged() {
 //	end of part from Dawn
 
 %hook _UIInterfaceActionVibrantSeparatorView
-- (bool)isHidden {
-	bool origValue = %orig;
+- (void)layoutSubviews {
 	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
 		if (
 			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
@@ -494,53 +520,10 @@ void TweakSettingsChanged() {
 			||
 			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
 		) {
-			return YES;
-		}
-	}
-	return origValue;
-}
-- (void)setHidden:(bool)arg1 {
-	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
-		if (
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
-			||
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
-			||
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
-		) {
-			arg1 = YES;
-		}
-	}
-	%orig;
-}
-%end
-
-%hook _UIContextMenuActionsListSeparatorView
-- (bool)isHidden {
-	bool origValue = %orig;
-	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 14 ) {
-		if (
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
-			||
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
-			||
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
-		) {
-			return YES;
-		}
-	}
-	return origValue;
-}
-- (void)setHidden:(bool)arg1 {
-	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 14 ) {
-		if (
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
-			||
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
-			||
-			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
-		) {
-			arg1 = YES;
+			self.hidden = YES;
+			[self setHidden:YES];
+			[self setAlpha:0];
+			self.alpha = 0;
 		}
 	}
 	%orig;
@@ -548,8 +531,7 @@ void TweakSettingsChanged() {
 %end
 
 %hook _UIInterfaceActionBlankSeparatorView
-- (bool)isHidden {
-	bool origValue = %orig;
+- (void)layoutSubviews {
 	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
 		if (
 			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
@@ -558,21 +540,60 @@ void TweakSettingsChanged() {
 			||
 			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
 		) {
-			return YES;
+			self.hidden = YES;
+			[self setHidden:YES];
+			[self setAlpha:0];
+			self.alpha = 0;
 		}
 	}
-	return origValue;
+	%orig;
 }
-- (void)setHidden:(bool)arg1 {
-	if ( enableTweak && !showSeparators && iOSversion.majorVersion == 13 ) {
+%end
+
+%hook _UIContextMenuActionsListSeparatorView
+- (void)_updateMaskingUsingAttributes:(id)arg1 {
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion > 13 ) {
 		if (
 			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
 			||
 			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
 			||
 			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBHLibraryViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBHomeScreenOverlayViewController)]
 		) {
-			arg1 = YES;
+			self.hidden = YES;
+			[self setHidden:YES];
+			[self setAlpha:0];
+			self.alpha = 0;
+		}
+	}
+	%orig;
+}
+%end
+
+%hook UICollectionReusableView
+- (void)layoutSubviews {
+	if ( enableTweak && !showSeparators && iOSversion.majorVersion > 13 ) {
+		if (
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBIconController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatingDockRootViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBFloatyFolderController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBHLibraryViewController)]
+			||
+			[[self _viewControllerForAncestor] isKindOfClass:%c(SBHomeScreenOverlayViewController)]
+		) {
+			if ( [self.reuseIdentifier isEqual:@"kContextMenuItemSeparator"] ) {
+				[self setHidden:YES];
+				self.hidden = YES;
+				[self setAlpha:0];
+				self.alpha = 0;
+			}
 		}
 	}
 	%orig;
@@ -580,11 +601,11 @@ void TweakSettingsChanged() {
 %end
 
 %ctor {
-	TweakSettingsChanged();
+	SettingsChanged();
 	CFNotificationCenterAddObserver(
 		CFNotificationCenterGetDarwinNotifyCenter(),
 		NULL,
-		(CFNotificationCallback)TweakSettingsChanged,
+		receivedNotification,
 		CFSTR("com.tomaszpoliszuk.homescreenquickactions.settingschanged"),
 		NULL,
 		CFNotificationSuspensionBehaviorDeliverImmediately
