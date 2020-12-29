@@ -23,7 +23,7 @@
 		},
 		{
 			cell = PSGroupCell;
-			label = "Delete App";
+			label = "Delete/Remove App";
 			key = "quickActionDeleteAppGroup";
 		},
 		{
@@ -37,27 +37,6 @@
 		{
 			cell = PSEditTextCell;
 			key = "quickActionDeleteAppSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			label = "Remove App";
-			key = "quickActionRemoveAppGroup";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionRemoveAppTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionRemoveAppSubtitle";
 			label = "Subtitle: ";
 			default = "";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;

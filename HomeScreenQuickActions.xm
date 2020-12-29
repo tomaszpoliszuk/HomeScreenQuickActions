@@ -97,20 +97,17 @@ static bool quickActionHideApp;
 static NSString *quickActionHideAppTitle = @"";
 static NSString *quickActionHideAppSubtitle = @"";
 
-//	iOS13
-static bool quickActionWidgets;
 static bool quickActionDeleteApp;
 static NSString *quickActionDeleteAppTitle = @"";
 static NSString *quickActionDeleteAppSubtitle = @"";
+
+//	iOS13
+static bool quickActionWidgets;
 
 //	iOS14
 static bool quickActionHideFolder;
 static NSString *quickActionHideFolderTitle = @"";
 static NSString *quickActionHideFolderSubtitle = @"";
-
-static bool quickActionRemoveApp;
-static NSString *quickActionRemoveAppTitle = @"";
-static NSString *quickActionRemoveAppSubtitle = @"";
 
 static bool quickActionRemoveWidget;
 static NSString *quickActionRemoveWidgetTitle = @"";
@@ -172,6 +169,7 @@ void TweakSettingsChanged() {
 	quickActionHideAppSubtitle = [tweakSettings objectForKey:@"quickActionHideAppSubtitle"];
 
 	quickActionWidgets = [([tweakSettings objectForKey:@"quickActionWidgets"] ?: @(NO)) boolValue];
+
 	quickActionDeleteApp = [([tweakSettings objectForKey:@"quickActionDeleteApp"] ?: @(YES)) boolValue];
 	quickActionDeleteAppTitle = [tweakSettings objectForKey:@"quickActionDeleteAppTitle"];
 	quickActionDeleteAppSubtitle = [tweakSettings objectForKey:@"quickActionDeleteAppSubtitle"];
@@ -179,10 +177,6 @@ void TweakSettingsChanged() {
 	quickActionHideFolder = [([tweakSettings objectForKey:@"quickActionHideFolder"] ?: @(YES)) boolValue];
 	quickActionHideFolderTitle = [tweakSettings objectForKey:@"quickActionHideFolderTitle"];
 	quickActionHideFolderSubtitle = [tweakSettings objectForKey:@"quickActionHideFolderSubtitle"];
-
-	quickActionRemoveApp = [([tweakSettings objectForKey:@"quickActionRemoveApp"] ?: @(YES)) boolValue];
-	quickActionRemoveAppTitle = [tweakSettings objectForKey:@"quickActionRemoveAppTitle"];
-	quickActionRemoveAppSubtitle = [tweakSettings objectForKey:@"quickActionRemoveAppSubtitle"];
 
 	quickActionRemoveWidget = [([tweakSettings objectForKey:@"quickActionRemoveWidget"] ?: @(YES)) boolValue];
 	quickActionRemoveWidgetTitle = [tweakSettings objectForKey:@"quickActionRemoveWidgetTitle"];
@@ -280,13 +274,13 @@ void TweakSettingsChanged() {
 					continue;
 				}
 				if ( [shortcutItem.type hasSuffix:@"remove-app"] ) {
-					if ( quickActionRemoveApp ) {
+					if ( quickActionDeleteApp ) {
 						[shortcutItems addObject: shortcutItem];
-						if ( quickActionRemoveAppTitle.length > 0 ) {
-							shortcutItem.localizedTitle = quickActionRemoveAppTitle;
+						if ( quickActionDeleteAppTitle.length > 0 ) {
+							shortcutItem.localizedTitle = quickActionDeleteAppTitle;
 						}
-						if ( quickActionRemoveAppSubtitle.length > 0 ) {
-							shortcutItem.localizedSubtitle = quickActionRemoveAppSubtitle;
+						if ( quickActionDeleteAppSubtitle.length > 0 ) {
+							shortcutItem.localizedSubtitle = quickActionDeleteAppSubtitle;
 						}
 					}
 					continue;

@@ -49,15 +49,7 @@
 		{
 			cell = PSSwitchCell;
 			key = "quickActionDeleteApp";
-			label = "Delete App";
-			default = 1;
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSSwitchCell;
-			key = "quickActionRemoveApp";
-			label = "Remove App";
+			label = "Delete/Remove App";
 			default = 1;
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";

@@ -85,8 +85,6 @@ NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
 			for(PSSpecifier* specifier in _specifiers) {
 				NSString* key = [specifier propertyForKey:@"key"];
 				if(
-					[key hasPrefix:@"quickActionRemoveApp"]
-					||
 					[key hasPrefix:@"quickActionConfigureStack"]
 					||
 					[key hasPrefix:@"quickActionConfigureWidget"]
@@ -109,11 +107,7 @@ NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
 				NSString* key = [specifier propertyForKey:@"key"];
 
 
-				if(
-					[key hasPrefix:@"quickActionDeleteApp"]
-					||
-					[key hasPrefix:@"quickActionWidgets"]
-				) {
+				if( [key hasPrefix:@"quickActionWidgets"] ) {
 					[removeSpecifiers addObject:specifier];
 				}
 
@@ -169,8 +163,6 @@ NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
 			for(PSSpecifier* specifier in _specifiers) {
 				NSString* key = [specifier propertyForKey:@"key"];
 				if(
-					[key hasPrefix:@"quickActionRemoveApp"]
-					||
 					[key hasPrefix:@"quickActionConfigureStack"]
 					||
 					[key hasPrefix:@"quickActionConfigureWidget"]
@@ -193,11 +185,7 @@ NSString *domainString = @"com.tomaszpoliszuk.homescreenquickactions";
 				NSString* key = [specifier propertyForKey:@"key"];
 
 
-				if(
-					[key hasPrefix:@"quickActionDeleteApp"]
-					||
-					[key hasPrefix:@"quickActionWidgets"]
-				) {
+				if( [key hasPrefix:@"quickActionWidgets"] ) {
 					[removeSpecifiers addObject:specifier];
 				}
 
