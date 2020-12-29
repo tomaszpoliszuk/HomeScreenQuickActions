@@ -459,6 +459,7 @@ void TweakSettingsChanged() {
 }
 %end
 
+//	this part is from https://github.com/EthanRDoesMC/Dawn tweak made by https://github.com/EthanRDoesMC
 %hook SBHIconViewContextMenuWrapperViewController
 -(void)viewDidLoad {
 	if ( enableTweak && uiStyle != 999 ) {
@@ -467,6 +468,7 @@ void TweakSettingsChanged() {
 	%orig;
 }
 %end
+//	end of part from Dawn
 
 %hook _UIInterfaceActionVibrantSeparatorView
 - (bool)isHidden {

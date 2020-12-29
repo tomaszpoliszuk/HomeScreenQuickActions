@@ -33,6 +33,8 @@ iOS 13 and above
 
 Configure options from Settings
 
+Part of code comes from https://github.com/EthanRDoesMC/Dawn tweak made by https://github.com/EthanRDoesMC
+
 ![settings](screenshots/homescreenquickactions1.png)
 ![dock](screenshots/homescreenquickactions2.jpg)
 ![folder](screenshots/homescreenquickactions3.jpg)
