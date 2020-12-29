@@ -18,7 +18,6 @@
 
 @interface UIView (HomeScreenQuickActions)
 -(id)_viewControllerForAncestor;
--(void)setOverrideUserInterfaceStyle:(NSInteger)style;
 @end
 
 @interface SBIconView : UIView
@@ -385,21 +384,16 @@ void TweakSettingsChanged() {
 					continue;
 				}
 			}
-//	every other app quick actions but bundled - disable all or none of them
 			bool appSpecificQuickActions = [[tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] boolValue];
 			if ( [tweakSettings objectForKey:[NSString stringWithFormat:@"appSpecificQuickActions-%@", bundleId]] == nil ) {
-				NSLog(@"[HomeScreenQuickActions] that's nil");
-				NSLog(@"[HomeScreenQuickActions] that's nil bundleId = %@", bundleId);
 				[shortcutItems addObject: shortcutItem];
 			} else if ( appSpecificQuickActions ) {
-				NSLog(@"[HomeScreenQuickActions] that's appSpecificQuickActions");
-				NSLog(@"[HomeScreenQuickActions] that's appSpecificQuickActions bundleId = %@", bundleId);
 				[shortcutItems addObject: shortcutItem];
 			}
 		}
 		if ( copyBundleID && bundleId ) {
 			SBSApplicationShortcutItem *copyBundleIDAction = [%c(SBSApplicationShortcutItem) alloc];
-			copyBundleIDAction.type = @"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id";
+			copyBundleIDAction.type = @"com.tomaszpoliszuk.springboardhome.application-shortcut-item.copy-bundle-id";
 			if ( copyBundleIDTitle.length > 0 ) {
 				copyBundleIDAction.localizedTitle = copyBundleIDTitle;
 			} else {
@@ -418,18 +412,17 @@ void TweakSettingsChanged() {
 	}
 
 }
-- (bool)shouldActivateApplicationShortcutItem:(SBSApplicationShortcutItem*)item atIndex:(unsigned long long)arg2 {
+- (bool)shouldActivateApplicationShortcutItem:(SBSApplicationShortcutItem*)arg1 atIndex:(unsigned long long)arg2 {
 	bool origValue = %orig;
 	NSString* bundleId;
-	if( [self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)] ) {
+	if( [self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)] && [[arg1 type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shortcut-item.copy-bundle-id"] ) {
 		bundleId = [self applicationBundleIdentifierForShortcuts];
-	}
-	if( [[item type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shotcut-item.copy-bundle-id"] ) {
 		[UIPasteboard generalPasteboard].string = bundleId;
 		return NO;
-	} else {
-		return origValue;
 	}
+	return origValue;
+}
+%end
 }
 %end
 
@@ -439,9 +432,8 @@ void TweakSettingsChanged() {
 	bool origValue = %orig;
 	if ( enableTweak ) {
 		return quickActionWidgets;
-	} else {
-		return origValue;
 	}
+	return origValue;
 }
 %end
 
@@ -450,9 +442,8 @@ void TweakSettingsChanged() {
 	bool origValue = %orig;
 	if ( enableTweak ) {
 		return reverseQuickActionsOrder;
-	} else {
-		return origValue;
 	}
+	return origValue;
 }
 %new
 -(void)updateTraitOverride {
