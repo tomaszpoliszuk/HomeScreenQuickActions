@@ -30,6 +30,10 @@
 @property (nonatomic, copy) NSString *localizedSubtitle;
 @end
 
+@interface _UIContextMenuActionView : UIView
+@property (nonatomic, readonly) UILabel *titleLabel;
+@end
+
 @interface UIInterfaceActionGroupView : UIView
 @end
 @interface _UIContextMenuActionsListView : UIInterfaceActionGroupView
@@ -423,6 +427,21 @@ void TweakSettingsChanged() {
 	return origValue;
 }
 %end
+
+%hook _UIContextMenuActionView
+//	iOS 13
+- (id)_imageViewForImage:(id)arg1 {
+	if ( [self.titleLabel.text isEqualToString:@"Copy Bundle ID"] || [self.titleLabel.text isEqualToString:copyBundleIDTitle]) {
+		arg1 = [[UIImage systemImageNamed:@"doc.on.clipboard"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	}
+	return %orig;
+}
+//	iOS 14
+- (void)setTrailingImage:(id)arg1 {
+	if ( [self.titleLabel.text isEqualToString:@"Copy Bundle ID"] || [self.titleLabel.text isEqualToString:copyBundleIDTitle]) {
+		arg1 = [[UIImage systemImageNamed:@"doc.on.clipboard"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	}
+	%orig;
 }
 %end
 
