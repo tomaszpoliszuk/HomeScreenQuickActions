@@ -66,7 +66,7 @@ iOS 13 and above
 Configure options from Settings
 
 ## Credits:
-* [ArtikusHG](https://github.com/ArtikusHG) for [PSSearchableListController](https://github.com/ArtikusHG/NeonBoard/blob/a0dc05eec94003707b20a17c6824fb7bb704c521/neonboardprefs/PSSearchableListController.m) and it's implementation [NBPSelectAppController](https://github.com/ArtikusHG/NeonBoard/blob/a0dc05eec94003707b20a17c6824fb7bb704c521/neonboardprefs/NBPSelectAppController.m#L1) from [NeonBoard](https://github.com/ArtikusHG/NeonBoard/)
+* [ArtikusHG](https://github.com/ArtikusHG) for [PSSearchableListController](https://github.com/ArtikusHG/NeonBoard/blob/a0dc05eec94003707b20a17c6824fb7bb704c521/neonboardprefs/PSSearchableListController.m) and it's implementation [NBPSelectAppController](https://github.com/ArtikusHG/NeonBoard/blob/a0dc05eec94003707b20a17c6824fb7bb704c521/neonboardprefs/NBPSelectAppController.m) from [NeonBoard](https://github.com/ArtikusHG/NeonBoard/)
 * [EthanRDoesMC](https://github.com/EthanRDoesMC) for [Home Screen QUick Actions UI Style](https://github.com/EthanRDoesMC/Dawn/blob/c3b6b6ab97805193627f0af62bd16feeea0a2b0f/Tweak.xm#L406-L413) from [Dawn](https://github.com/EthanRDoesMC/Dawn/)
 * [Ryan Petrich](https://github.com/rpetrich) for [Clear Cache and Reset app code](https://github.com/rpetrich/CacheClearer/blob/216dd186aface6243ca94810bf9fbadc5f8c3066/Tweak.x#L25-L90) from [CacheClearer](https://github.com/rpetrich/CacheClearer/)
 
