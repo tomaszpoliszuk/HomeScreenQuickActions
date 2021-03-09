@@ -3,19 +3,25 @@
 	items = (
 		{
 			cell = PSGroupCell;
-			label = "Edit Home Screen";
+			label = "Installed Applications (Native)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Delete/Remove App";
+			key = "appQuickActionDeleteGroup";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionEditHomeScreenTitle";
+			key = "appQuickActionDeleteTitle";
 			label = "Title: ";
 			default = "";
+			placeholder = "Delete/Remove App";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionEditHomeScreenSubtitle";
+			key = "appQuickActionDeleteSubtitle";
 			label = "Subtitle: ";
 			default = "";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
@@ -23,20 +29,20 @@
 		},
 		{
 			cell = PSGroupCell;
-			label = "Delete/Remove App";
-			key = "quickActionDeleteAppGroup";
+			label = "Edit Home Screen";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionDeleteAppTitle";
+			key = "appQuickActionEditHomeScreenTitle";
 			label = "Title: ";
 			default = "";
+			placeholder = "Edit Home Screen";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionDeleteAppSubtitle";
+			key = "appQuickActionEditHomeScreenSubtitle";
 			label = "Subtitle: ";
 			default = "";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
@@ -48,15 +54,16 @@
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionShareTitle";
+			key = "appQuickActionShareTitle";
 			label = "Title: ";
 			default = "";
+			placeholder = "Share App";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionShareSubtitle";
+			key = "appQuickActionShareSubtitle";
 			label = "Subtitle: ";
 			default = "";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
@@ -64,20 +71,20 @@
 		},
 		{
 			cell = PSGroupCell;
-			key = "quickActionAddToHomeScreenGroup";
-			label = "Add To Home Screen";
+			label = "Show all Windows";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionAddToHomeScreenTitle";
+			key = "appQuickActionShowAllWindowsTitle";
 			label = "Title: ";
 			default = "";
+			placeholder = "Show all Windows";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionAddToHomeScreenSubtitle";
+			key = "appQuickActionShowAllWindowsSubtitle";
 			label = "Subtitle: ";
 			default = "";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
@@ -85,183 +92,24 @@
 		},
 		{
 			cell = PSGroupCell;
-			label = "Hide App";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionHideAppTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionHideAppSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+			label = "Installed Applications (Custom)";
 		},
 		{
 			cell = PSGroupCell;
-			label = "Prioritize Download";
+			label = "Share Bundle ID";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionPrioritizeDownloadTitle";
+			key = "appCustomQuickActionShareBundleIDTitle";
 			label = "Title: ";
 			default = "";
+			placeholder = "Share Bundle ID";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},
 		{
 			cell = PSEditTextCell;
-			key = "quickActionPrioritizeDownloadSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			label = "Pause Download";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionPauseDownloadTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionPauseDownloadSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			label = "Cancel Download";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionCancelDownloadTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionCancelDownloadSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			label = "Rename Folder";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionRenameFolderTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionRenameFolderSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			label = "Hide Folder";
-			key = "quickActionHideFolderGroup";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionHideFolderTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionHideFolderSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			key = "quickActionRemoveWidgetGroup";
-			label = "Remove Widget";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionRemoveWidgetTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionRemoveWidgetSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			key = "quickActionConfigureWidgetGroup";
-			label = "Edit Widget";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionConfigureWidgetTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionConfigureWidgetSubtitle";
-			label = "Subtitle: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSGroupCell;
-			key = "quickActionConfigureStackGroup";
-			label = "Edit Stack Widget";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionConfigureStackTitle";
-			label = "Title: ";
-			default = "";
-			defaults = com.tomaszpoliszuk.homescreenquickactions;
-			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
-		},
-		{
-			cell = PSEditTextCell;
-			key = "quickActionConfigureStackSubtitle";
+			key = "appCustomQuickActionShareBundleIDSubtitle";
 			label = "Subtitle: ";
 			default = "";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
@@ -273,7 +121,7 @@
 		},
 		{
 			cell = PSEditTextCell;
-			key = "copyBundleIDTitle";
+			key = "appCustomQuickActionCopyBundleIDTitle";
 			label = "Title: ";
 			default = "";
 			placeholder = "Copy Bundle ID";
@@ -282,10 +130,687 @@
 		},
 		{
 			cell = PSEditTextCell;
-			key = "copyBundleIDSubtitle";
+			key = "appCustomQuickActionCopyBundleIDSubtitle";
 			label = "Subtitle: ";
 			default = "";
-			placeholder = "Bundle ID";
+			placeholder = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Open App in Filza:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "appCustomQuickActionOpenAppInFilzaTitle";
+			default = "";
+			placeholder = "Open App in Filza";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "appCustomQuickActionOpenAppInFilzaSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Clear Badge:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "appCustomQuickActionClearBadgeTitle";
+			default = "";
+			placeholder = "Clear Badge";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "appCustomQuickActionClearBadgeSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Clear App Cache:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "appCustomQuickActionClearCacheTitle";
+			default = "";
+			placeholder = "Clear App Cache";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "appCustomQuickActionClearCacheSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Reset App:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "appCustomQuickActionResetTitle";
+			default = "";
+			placeholder = "Reset App";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "appCustomQuickActionResetSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Offload App";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appCustomQuickActionOffloadTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Offload App";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appCustomQuickActionOffloadSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			placeholder = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Offloaded Applications (Native)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Edit Home Screen";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "offloadedAppQuickActionEditHomeScreenTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Edit Home Screen";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "offloadedAppQuickActionEditHomeScreenSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Offloaded Applications (Custom)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Share Bundle ID";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "offloadedAppCustomQuickActionShareBundleIDTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Share Bundle ID";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "offloadedAppCustomQuickActionShareBundleIDSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Copy Bundle ID";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "offloadedAppCustomQuickActionCopyBundleIDTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Copy Bundle ID";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "offloadedAppCustomQuickActionCopyBundleIDSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Open App in Filza:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "offloadedAppCustomQuickActionOpenAppInFilzaTitle";
+			default = "";
+			placeholder = "Open App in Filza";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "offloadedAppCustomQuickActionOpenAppInFilzaSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Folders (Native)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Remove Folder";
+			key = "folderQuickActionRemoveGroup";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderQuickActionRemoveTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Remove Folder";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderQuickActionRemoveSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Edit Home Screen";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderQuickActionEditHomeScreenTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Edit Home Screen";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderQuickActionEditHomeScreenSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Rename Folder";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderQuickActionRenameTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Rename Folder";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderQuickActionRenameSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Folders (Custom)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Share Bundle IDs";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderCustomQuickActionShareBundleIDTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Share Bundle IDs";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderCustomQuickActionShareBundleIDSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Copy Bundle IDs";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderCustomQuickActionCopyBundleIDTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Copy Bundle IDs";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderCustomQuickActionCopyBundleIDSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			placeholder = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Clear Badges:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "folderCustomQuickActionClearBadgeTitle";
+			default = "";
+			placeholder = "Clear Badges";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "folderCustomQuickActionClearBadgeSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Clear Apps Cache:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "folderCustomQuickActionClearCacheTitle";
+			default = "";
+			placeholder = "Clear Apps Cache";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "folderCustomQuickActionClearCacheSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Reset Apps:";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Title: ";
+			key = "folderCustomQuickActionResetTitle";
+			default = "";
+			placeholder = "Reset Apps";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			label = "Subtitle: ";
+			key = "folderCustomQuickActionResetSubtitle";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Offload Apps";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderCustomQuickActionOffloadTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Offload Apps";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "folderCustomQuickActionOffloadSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Widgets (Native)";
+			key = "widgetQuickActionGroup";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Remove Widget";
+			key = "widgetQuickActionRemoveGroup";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetQuickActionRemoveTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Remove Widget";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetQuickActionRemoveSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Edit Home Screen";
+			key = "widgetQuickActionEditHomeScreenGroup";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetQuickActionEditHomeScreenTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Edit Home Screen";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetQuickActionEditHomeScreenSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Edit Widget";
+			key = "widgetQuickActionConfigureGroup";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetQuickActionConfigureTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Edit Widget";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetQuickActionConfigureSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Edit Stack Widget";
+			key = "widgetStackQuickActionConfigureGroup";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetStackQuickActionConfigureTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Edit Stack Widget";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "widgetStackQuickActionConfigureSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Bookmarks (Native)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Delete Bookmark";
+			key = "bookmarkQuickActionDeleteGroup";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "bookmarkQuickActionDeleteTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Delete Bookmark";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "bookmarkQuickActionDeleteSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Share Bookmark";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "bookmarkQuickActionShareTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Share Bookmark";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "bookmarkQuickActionShareSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Edit Home Screen";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "bookmarkQuickActionEditHomeScreenTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Edit Home Screen";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "bookmarkQuickActionEditHomeScreenSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Visible in App Library (Native)";
+			key = "visibleinAppLibrary";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Add To Home Screen";
+			key = "appQuickActionAddToHomeScreenGroup";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionAddToHomeScreenTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Add To Home Screen";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionAddToHomeScreenSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Visible during downloading app (Native)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Prioritize Download";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionPrioritizeDownloadTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Prioritize Download";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionPrioritizeDownloadSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Pause Download";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionPauseDownloadTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Pause Download";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionPauseDownloadSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Cancel Download";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionCancelDownloadTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Cancel Download";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionCancelDownloadSubtitle";
+			label = "Subtitle: ";
+			default = "";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSGroupCell;
+			label = "visible in iPad Dock recents (Native)";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Hide App";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionHideTitle";
+			label = "Title: ";
+			default = "";
+			placeholder = "Hide App";
+			defaults = com.tomaszpoliszuk.homescreenquickactions;
+			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
+		},
+		{
+			cell = PSEditTextCell;
+			key = "appQuickActionHideSubtitle";
+			label = "Subtitle: ";
+			default = "";
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
 		},

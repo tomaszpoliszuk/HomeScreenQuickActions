@@ -4,7 +4,7 @@
 		isController = 1;
 		label = "Home Screen Quick Actions";
 		bundle = HomeScreenQuickActionsSettings;
-		detail = HomeScreenQuickActionsMainSettings;
+		detail = HomeScreenQuickActionsRootSettings;
 		icon = icons/HomeScreenQuickActions.png;
 	};
 }
