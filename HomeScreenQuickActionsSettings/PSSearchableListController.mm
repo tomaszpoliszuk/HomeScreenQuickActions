@@ -18,8 +18,7 @@
 		return;
 	}
 	NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(PSSpecifier *specifier, NSDictionary *bindings) {
-		NSString* key = [specifier propertyForKey:@"defaults"];
-		if (key) {
+		if ( specifier.cellType == PSGroupCell ) {
 			return [specifier.name.lowercaseString rangeOfString:text.lowercaseString].location != NSNotFound;
 		} else {
 			return YES;

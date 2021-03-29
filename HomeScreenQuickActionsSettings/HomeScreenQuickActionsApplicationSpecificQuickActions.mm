@@ -51,10 +51,7 @@
 			[specifier setProperty:[NSString stringWithFormat:@"appSpecificQuickActions-%@", applicationProxy.applicationIdentifier] forKey:@"key"];
 
 			bool isInstalled = applicationProxy.isInstalled;
-			bool isSystemApp = NO;
-			if ( [applicationProxy.applicationType isEqualToString:@"System"] ) {
-				isSystemApp = YES;
-			}
+			bool isSystemApp = [applicationProxy.applicationType isEqualToString:@"System"];
 
 			if ( isInstalled && isSystemApp ) {
 				[_specifiersInstalledSystemApps addObject:specifier];
@@ -65,21 +62,24 @@
 			}
 		}
 
-		[_specifiersInstalledSystemGroup addObject:[PSSpecifier groupSpecifierWithName:@"System Apps"]];
-		[_specifiersInstalledSystemApps sortUsingComparator:^NSComparisonResult(PSSpecifier *a, PSSpecifier *b) {
-			return [a.name localizedCaseInsensitiveCompare:b.name];
-		}];
-		[_specifiersInstalledSystemGroup addObjectsFromArray:_specifiersInstalledSystemApps];
-		self.specifiersInstalledSystemGroup = [_specifiersInstalledSystemGroup mutableCopy];
-		[_specifiers addObjectsFromArray:_specifiersInstalledSystemGroup];
-
-		[_specifiersInstalledUserGroup addObject:[PSSpecifier groupSpecifierWithName:@"User Apps"]];
-		[_specifiersInstalledUserApps sortUsingComparator:^NSComparisonResult(PSSpecifier *a, PSSpecifier *b) {
-			return [a.name localizedCaseInsensitiveCompare:b.name];
-		}];
-		[_specifiersInstalledUserGroup addObjectsFromArray:_specifiersInstalledUserApps];
-		self.specifiersInstalledUserGroup = [_specifiersInstalledUserGroup mutableCopy];
-		[_specifiers addObjectsFromArray:_specifiersInstalledUserGroup];
+		if ( _specifiersInstalledSystemApps.count > 0 ) {
+			[_specifiersInstalledSystemGroup addObject:[PSSpecifier groupSpecifierWithName:@"System Apps"]];
+			[_specifiersInstalledSystemApps sortUsingComparator:^NSComparisonResult(PSSpecifier *a, PSSpecifier *b) {
+				return [a.name localizedCaseInsensitiveCompare:b.name];
+			}];
+			[_specifiersInstalledSystemGroup addObjectsFromArray:_specifiersInstalledSystemApps];
+			self.specifiersInstalledSystemGroup = [_specifiersInstalledSystemGroup mutableCopy];
+			[_specifiers addObjectsFromArray:_specifiersInstalledSystemGroup];
+		}
+		if ( _specifiersInstalledUserApps.count > 0 ) {
+			[_specifiersInstalledUserGroup addObject:[PSSpecifier groupSpecifierWithName:@"User Apps"]];
+			[_specifiersInstalledUserApps sortUsingComparator:^NSComparisonResult(PSSpecifier *a, PSSpecifier *b) {
+				return [a.name localizedCaseInsensitiveCompare:b.name];
+			}];
+			[_specifiersInstalledUserGroup addObjectsFromArray:_specifiersInstalledUserApps];
+			self.specifiersInstalledUserGroup = [_specifiersInstalledUserGroup mutableCopy];
+			[_specifiers addObjectsFromArray:_specifiersInstalledUserGroup];
+		}
 
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 			for (PSSpecifier *specifier in _specifiers) {

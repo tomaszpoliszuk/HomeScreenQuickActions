@@ -22,6 +22,8 @@
 #define kIconController [%c(SBIconController) sharedInstance]
 #define kIconManager [kIconController iconManager]
 #define kFloatingDockController [kIconController floatingDockController]
+#define kDismissFloatingDockIfPresented [kFloatingDockController _dismissFloatingDockIfPresentedAnimated:YES completionHandler:nil]
+#define kPresentFloatingDockIfDismissed [kFloatingDockController _presentFloatingDockIfDismissedAnimated:YES completionHandler:nil]
 
 NSMutableDictionary *tweakSettings;
 
@@ -1277,11 +1279,7 @@ static void ClearDirectoryURLContents(NSURL *url) {
 		}
 		if (%c(UIActivityViewController)) {
 			UIActivityViewController *activityViewController = [[%c(UIActivityViewController) alloc] initWithActivityItems:[NSArray arrayWithObjects:stringToShare, nil, nil] applicationActivities:nil];
-			if ([kIconManager isFloatingDockVisible]) {
-				[kFloatingDockController.floatingDockViewController presentViewController:activityViewController animated:YES completion:nil];
-			} else {
-				[self.window.rootViewController presentViewController:activityViewController animated:YES completion:nil];
-			}
+			[self.window.rootViewController presentViewController:activityViewController animated:YES completion:nil];
 		}
 		return NO;
 	}
@@ -1338,6 +1336,36 @@ static void ClearDirectoryURLContents(NSURL *url) {
 		[self setOverrideUserInterfaceStyle:uiStyle];
 	}
 	%orig;
+}
+%end
+
+%hook UIActivityContentViewController
+- (void)viewWillAppear:(bool)arg1 {
+	%orig;
+	if ( enableTweak ) {
+		kDismissFloatingDockIfPresented;
+	}
+}
+- (void)viewWillDisappear:(bool)arg1 {
+	%orig;
+	if ( enableTweak ) {
+		kPresentFloatingDockIfDismissed;
+	}
+}
+%end
+
+%hook SKRemoteProductActivityViewController
+- (void)viewWillAppear:(bool)arg1 {
+	%orig;
+	if ( enableTweak ) {
+		kDismissFloatingDockIfPresented;
+	}
+}
+- (void)viewWillDisappear:(bool)arg1 {
+	%orig;
+	if ( enableTweak ) {
+		kPresentFloatingDockIfDismissed;
+	}
 }
 %end
 

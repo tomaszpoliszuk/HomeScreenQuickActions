@@ -14,7 +14,7 @@ iOS 13 and above
 		* Show all Windows
 		* App Specific Quick Actions
 	* Installed Applications (Custom):
-		* Share Bundle ID (Beta)
+		* Share Bundle ID
 		* Copy Bundle ID
 		* Open App in Filza
 		* Clear Badge
@@ -24,7 +24,7 @@ iOS 13 and above
 	* Offloaded Applications (Native):
 		* Edit Home Screen
 	* Offloaded Applications (Custom):
-		* Share Bundle ID (Beta)
+		* Share Bundle ID
 		* Copy Bundle ID
 		* Open App in Filza
 	* Folders (Native):
@@ -33,7 +33,7 @@ iOS 13 and above
 		* Rename Folder
 		* Show Apps with Badges
 	* Folders (Custom):
-		* Share Bundle IDs (Beta)
+		* Share Bundle IDs
 		* Copy Bundle IDs
 		* Clear Badges
 		* Clear Apps Cache (Beta)

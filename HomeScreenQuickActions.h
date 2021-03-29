@@ -161,6 +161,8 @@ static NSString *const domainString = @"com.tomaszpoliszuk.homescreenquickaction
 
 @interface SBFloatingDockController : NSObject
 @property (nonatomic, readonly) SBFloatingDockViewController *floatingDockViewController;
+- (void)_dismissFloatingDockIfPresentedAnimated:(bool)arg1 completionHandler:(id /* block */)arg2;
+- (void)_presentFloatingDockIfDismissedAnimated:(bool)arg1 completionHandler:(id /* block */)arg2;
 @end
 
 @interface SBHIconManager : NSObject
@@ -172,4 +174,3 @@ static NSString *const domainString = @"com.tomaszpoliszuk.homescreenquickaction
 @property (nonatomic, readonly) SBHIconManager *iconManager;
 @property (nonatomic, readonly) SBFloatingDockController *floatingDockController;
 @end
-

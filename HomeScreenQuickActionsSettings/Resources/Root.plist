@@ -78,15 +78,11 @@
 		{
 			cell = PSGroupCell;
 			label = "Installed Applications (Custom)";
-			footerText = "Beta Action Info:
-Share Bundle ID - visual glitch when iPad Dock is enabled";
 		},
 		{
 			cell = PSSwitchCell;
-			cellClass = PSSubtitleSwitchTableCell;
 			key = "appCustomQuickActionShareBundleID";
 			label = "Share Bundle ID";
-			cellSubtitleText = "Beta Action";
 			default = 0;
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
@@ -154,15 +150,11 @@ Share Bundle ID - visual glitch when iPad Dock is enabled";
 		{
 			cell = PSGroupCell;
 			label = "Offloaded Applications (Custom)";
-			footerText = "Beta Action Info:
-Share Bundle ID - visual glitch when iPad Dock is enabled";
 		},
 		{
 			cell = PSSwitchCell;
-			cellClass = PSSubtitleSwitchTableCell;
 			key = "offloadedAppCustomQuickActionShareBundleID";
 			label = "Share Bundle ID";
-			cellSubtitleText = "Beta Action";
 			default = 0;
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
@@ -223,17 +215,14 @@ Share Bundle ID - visual glitch when iPad Dock is enabled";
 			cell = PSGroupCell;
 			label = "Folders (Custom)";
 			footerText = "Beta Action Info:
-Share Bundle IDs - visual glitch when iPad Dock is enabled
 Clear Apps Cache - never shows info about already empty cache
 Reset Apps - never shows info that apps were already reset
 List Apps In Folder - doesn't show badges";
 		},
 		{
 			cell = PSSwitchCell;
-			cellClass = PSSubtitleSwitchTableCell;
 			key = folderCustomQuickActionShareBundleID;
 			label = "Share Bundle IDs";
-			cellSubtitleText = "Beta Action";
 			default = 0;
 			defaults = com.tomaszpoliszuk.homescreenquickactions;
 			PostNotification = "com.tomaszpoliszuk.homescreenquickactions.settingschanged";
