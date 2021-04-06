@@ -115,6 +115,7 @@ static NSString *const domainString = @"com.tomaszpoliszuk.homescreenquickaction
 @property (nonatomic, copy) NSString *localizedTitle;
 @property (nonatomic, copy) NSString *localizedSubtitle;
 @property (nonatomic, copy) SBSApplicationShortcutIcon *icon;
+@property (nonatomic, copy) NSString *bundleIdentifierToLaunch;
 @end
 
 @interface _LSQueryResult : NSObject
@@ -124,6 +125,7 @@ static NSString *const domainString = @"com.tomaszpoliszuk.homescreenquickaction
 @interface LSBundleProxy : LSResourceProxy
 @property (nonatomic, readonly) NSURL *bundleURL;
 @property (nonatomic, readonly) NSURL *dataContainerURL;
+@property (readonly) bool if_isSystem;
 @end
 @interface LSApplicationProxy : LSBundleProxy
 @property (readonly) NSString * applicationType;

@@ -82,6 +82,10 @@ static bool appCustomQuickActionOffload;
 static NSString *appCustomQuickActionOffloadTitle = @"";
 static NSString *appCustomQuickActionOffloadSubtitle = @"";
 
+static bool appCustomQuickActionOpenAppSettings;
+static NSString *appCustomQuickActionOpenAppSettingsTitle = @"";
+static NSString *appCustomQuickActionOpenAppSettingsSubtitle = @"";
+
 //	Offloaded Applications (Native)
 static bool offloadedAppQuickActionEditHomeScreen;
 static NSString *offloadedAppQuickActionEditHomeScreenTitle = @"";
@@ -276,6 +280,10 @@ void SettingsChanged() {
 	appCustomQuickActionOffload = [([tweakSettings objectForKey:@"appCustomQuickActionOffload"] ?: @(NO)) boolValue];
 	appCustomQuickActionOffloadTitle = [tweakSettings objectForKey:@"appCustomQuickActionOffloadTitle"];
 	appCustomQuickActionOffloadSubtitle = [tweakSettings objectForKey:@"appCustomQuickActionOffloadSubtitle"];
+
+	appCustomQuickActionOpenAppSettings = [([tweakSettings objectForKey:@"appCustomQuickActionOpenAppSettings"] ?: @(NO)) boolValue];
+	appCustomQuickActionOpenAppSettingsTitle = [tweakSettings objectForKey:@"appCustomQuickActionOpenAppSettingsTitle"];
+	appCustomQuickActionOpenAppSettingsSubtitle = [tweakSettings objectForKey:@"appCustomQuickActionOpenAppSettingsSubtitle"];
 
 //	Offloaded Applications (Native)
 	offloadedAppQuickActionEditHomeScreen = [([tweakSettings objectForKey:@"offloadedAppQuickActionEditHomeScreen"] ?: @(YES)) boolValue]; // (Beta)
@@ -811,6 +819,28 @@ static void ClearDirectoryURLContents(NSURL *url) {
 				[shortcutItems addObject: appCustomQuickActionOffloadItem];
 			}
 		}
+
+		if ( appCustomQuickActionOpenAppSettings && bundleId ) {
+			SBSApplicationShortcutItem *appCustomQuickActionOpenAppSettingsItem = [%c(SBSApplicationShortcutItem) alloc];
+			appCustomQuickActionOpenAppSettingsItem.type = @"com.tomaszpoliszuk.springboardhome.application-shortcut-item.open-settings";
+			LSApplicationProxy *applicationProxy = [%c(LSApplicationProxy) applicationProxyForIdentifier:bundleId];
+			if ( appCustomQuickActionOpenAppSettingsTitle.length > 0 ) {
+				appCustomQuickActionOpenAppSettingsItem.localizedTitle = appCustomQuickActionOpenAppSettingsTitle;
+			} else {
+				appCustomQuickActionOpenAppSettingsItem.localizedTitle = @"Open App Settings";
+			}
+			appCustomQuickActionOpenAppSettingsItem.bundleIdentifierToLaunch = @"com.apple.Preferences";
+			appCustomQuickActionOpenAppSettingsItem.icon = [[%c(SBSApplicationShortcutSystemIcon) alloc] initWithSystemImageName:@"gear"];
+			if ( appCustomQuickActionOpenAppSettingsSubtitle.length > 0 ) {
+				appCustomQuickActionOpenAppSettingsItem.localizedSubtitle = appCustomQuickActionOpenAppSettingsSubtitle;
+			}
+			bool if_isSystem = applicationProxy.if_isSystem;
+			bool isInstalled = applicationProxy.isInstalled;
+			if ( isInstalled && !if_isSystem ) {
+				[shortcutItems addObject: appCustomQuickActionOpenAppSettingsItem];
+			}
+		}
+
 		if ( folderCustomQuickActionShareBundleID && [self isFolderIcon] ) {
 			SBSApplicationShortcutItem *folderCustomQuickActionShareBundleIDItem = [%c(SBSApplicationShortcutItem) alloc];
 			folderCustomQuickActionShareBundleIDItem.type = @"com.tomaszpoliszuk.springboardhome.application-shortcut-item.share-bundle-id";
@@ -1282,6 +1312,15 @@ static void ClearDirectoryURLContents(NSURL *url) {
 			[self.window.rootViewController presentViewController:activityViewController animated:YES completion:nil];
 		}
 		return NO;
+
+	} else if ( [self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)] && [[arg1 type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shortcut-item.open-settings"] ) {
+
+		NSString *openSettingsString = [@"App-prefs:" stringByAppendingString:applicationBundleID];
+		openSettingsString = [openSettingsString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
+		NSURL *openSettingsURL = [NSURL URLWithString:openSettingsString];
+		[[UIApplication sharedApplication] openURL:openSettingsURL options:@{} completionHandler:nil];
+		return YES;
+
 	}
 	return origValue;
 }
@@ -1317,13 +1356,17 @@ static void ClearDirectoryURLContents(NSURL *url) {
 }
 %new
 -(void)updateTraitOverride {
-	if ( enableTweak && uiStyle != 999 ) {
-		[self setOverrideUserInterfaceStyle:uiStyle];
+	if (@available(iOS 13, *)) {
+		if ( enableTweak && uiStyle != 999 ) {
+			[self setOverrideUserInterfaceStyle:uiStyle];
+		}
 	}
 }
 -(void)didMoveToWindow {
-	if ( enableTweak && uiStyle != 999 ) {
-		[self setOverrideUserInterfaceStyle:uiStyle];
+	if (@available(iOS 13, *)) {
+		if ( enableTweak && uiStyle != 999 ) {
+			[self setOverrideUserInterfaceStyle:uiStyle];
+		}
 	}
 	%orig;
 }
@@ -1332,8 +1375,10 @@ static void ClearDirectoryURLContents(NSURL *url) {
 %hook SBHIconViewContextMenuWrapperViewController
 -(void)viewDidLoad {
 //	this part is from https://github.com/EthanRDoesMC/Dawn tweak made by https://github.com/EthanRDoesMC
-	if ( enableTweak && uiStyle != 999 ) {
-		[self setOverrideUserInterfaceStyle:uiStyle];
+	if (@available(iOS 13, *)) {
+		if ( enableTweak && uiStyle != 999 ) {
+			[self setOverrideUserInterfaceStyle:uiStyle];
+		}
 	}
 	%orig;
 }
