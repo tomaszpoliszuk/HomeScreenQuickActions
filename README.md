@@ -21,6 +21,7 @@ iOS 13 and above
 		* Clear App Cache
 		* Reset App
 		* Offload App
+		* Open App Settings
 	* Offloaded Applications (Native):
 		* Edit Home Screen
 	* Offloaded Applications (Custom):
