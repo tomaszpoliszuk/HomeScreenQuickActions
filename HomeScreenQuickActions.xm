@@ -444,6 +444,7 @@ static void ClearDirectoryURLContents(NSURL *url) {
 		LSApplicationProxy *applicationProxy = [%c(LSApplicationProxy) applicationProxyForIdentifier:applicationBundleID];
 		bool isInstalled = applicationProxy.isInstalled;
 		bool isDeletable = applicationProxy.isDeletable;
+		bool if_isSystem = applicationProxy.if_isSystem;
 		bool haveBadge = [[self icon] badgeValue];
 		for (SBSApplicationShortcutItem *shortcutItem in arg1) {
 //	Apple uses both prefixes for system shortcuts:
