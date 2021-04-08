@@ -820,10 +820,9 @@ static void ClearDirectoryURLContents(NSURL *url) {
 			}
 		}
 
-		if ( appCustomQuickActionOpenAppSettings && bundleId ) {
+		if ( appCustomQuickActionOpenAppSettings && applicationBundleID ) {
 			SBSApplicationShortcutItem *appCustomQuickActionOpenAppSettingsItem = [%c(SBSApplicationShortcutItem) alloc];
 			appCustomQuickActionOpenAppSettingsItem.type = @"com.tomaszpoliszuk.springboardhome.application-shortcut-item.open-settings";
-			LSApplicationProxy *applicationProxy = [%c(LSApplicationProxy) applicationProxyForIdentifier:bundleId];
 			if ( appCustomQuickActionOpenAppSettingsTitle.length > 0 ) {
 				appCustomQuickActionOpenAppSettingsItem.localizedTitle = appCustomQuickActionOpenAppSettingsTitle;
 			} else {
@@ -834,8 +833,6 @@ static void ClearDirectoryURLContents(NSURL *url) {
 			if ( appCustomQuickActionOpenAppSettingsSubtitle.length > 0 ) {
 				appCustomQuickActionOpenAppSettingsItem.localizedSubtitle = appCustomQuickActionOpenAppSettingsSubtitle;
 			}
-			bool if_isSystem = applicationProxy.if_isSystem;
-			bool isInstalled = applicationProxy.isInstalled;
 			if ( isInstalled && !if_isSystem ) {
 				[shortcutItems addObject: appCustomQuickActionOpenAppSettingsItem];
 			}
