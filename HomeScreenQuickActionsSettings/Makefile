@@ -6,7 +6,7 @@ include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = HomeScreenQuickActionsSettings
 
-$(BUNDLE_NAME)_FILES = HomeScreenQuickActionsRootSettings.mm PSSearchableListController.mm HomeScreenQuickActionsApplicationSpecificQuickActions.mm HomeScreenQuickActionsRenameSettings.mm
+$(BUNDLE_NAME)_FILES = HomeScreenQuickActionsRootSettings.mm HomeScreenQuickActionsSearchableListController.mm HomeScreenQuickActionsApplicationSpecificQuickActions.mm HomeScreenQuickActionsRenameSettings.mm
 $(BUNDLE_NAME)_INSTALL_PATH = /Library/PreferenceBundles
 $(BUNDLE_NAME)_FRAMEWORKS = UIKit
 $(BUNDLE_NAME)_PRIVATE_FRAMEWORKS = Preferences

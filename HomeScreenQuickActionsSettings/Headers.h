@@ -20,13 +20,13 @@
 #include <Preferences/PSSpecifier.h>
 #import "../HomeScreenQuickActions.h"
 
-@interface PSSearchableListController : PSListController <UISearchResultsUpdating, UISearchBarDelegate>
+@interface HomeScreenQuickActionsSearchableListController : PSListController <UISearchResultsUpdating, UISearchBarDelegate>
 @property (nonatomic, retain) NSMutableArray *originalSpecifiers;
 @property (nonatomic, retain) NSMutableArray *specifiersInstalledSystemGroup;
 @property (nonatomic, retain) NSMutableArray *specifiersInstalledUserGroup;
 @end
 
-@interface HomeScreenQuickActionsApplicationSpecificQuickActions : PSSearchableListController
+@interface HomeScreenQuickActionsApplicationSpecificQuickActions : HomeScreenQuickActionsSearchableListController
 @end
 
 @interface HomeScreenQuickActionsRootSettings : PSListController {

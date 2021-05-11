@@ -1,6 +1,6 @@
 #include "Headers.h"
 
-@implementation PSSearchableListController
+@implementation HomeScreenQuickActionsSearchableListController
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
