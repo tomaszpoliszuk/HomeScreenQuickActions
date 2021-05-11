@@ -45,6 +45,8 @@
 			PSSpecifier *specifier = [PSSpecifier preferenceSpecifierNamed:title target:self set:@selector(setPreferenceValue:specifier:) get:@selector(readPreferenceValue:) detail:nil cell:PSSwitchCell edit:nil];
 			[specifier setProperty:defaultIcon forKey:@"iconImage"];
 			[specifier setProperty:applicationProxy.applicationIdentifier forKey:@"appBundleID"];
+			[specifier setProperty:NSClassFromString(@"PSSubtitleSwitchTableCell") forKey:@"cellClass"];
+			[specifier setProperty:applicationProxy.applicationIdentifier forKey:@"cellSubtitleText"];
 			[specifier setProperty:@"com.tomaszpoliszuk.homescreenquickactions" forKey:@"defaults"];
 			[specifier setProperty:@"1" forKey:@"default"];
 			[specifier setProperty:@"com.tomaszpoliszuk.homescreenquickactions.settingschanged" forKey:@"PostNotification"];

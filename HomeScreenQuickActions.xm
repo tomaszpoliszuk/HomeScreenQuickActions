@@ -432,11 +432,13 @@ static void ClearDirectoryURLContents(NSURL *url) {
 %hook SBIconView
 - (void)setApplicationShortcutItems:(NSArray *)arg1 {
 	NSString* bundleId;
-	if([self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)]) {
+	if( [self respondsToSelector:@selector(applicationBundleIdentifier)] ) {
+		bundleId = [self applicationBundleIdentifier];
+	} else if( [self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)] ) {
 		bundleId = [self applicationBundleIdentifierForShortcuts];
 	}
 	NSString* applicationBundleID;
-	if([[self icon] respondsToSelector:@selector(applicationBundleID)]) {
+	if( [[self icon] respondsToSelector:@selector(applicationBundleID)] ) {
 		applicationBundleID = [[self icon] applicationBundleID];
 	}
 	if ( enableTweak ) {
@@ -1272,7 +1274,7 @@ static void ClearDirectoryURLContents(NSURL *url) {
 			[currentAlertWindow.rootViewController presentViewController:currentAlert animated:YES completion:nil];
 		}
 		return NO;
-	} else if ( [self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)] && [[arg1 type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shortcut-item.open-app-in-filza"] ) {
+	} else if ( ( [self respondsToSelector:@selector(applicationBundleIdentifier)] || [self respondsToSelector:@selector(applicationBundleIdentifierForShortcuts)] ) && [[arg1 type] isEqualToString:@"com.tomaszpoliszuk.springboardhome.application-shortcut-item.open-app-in-filza"] ) {
 		LSApplicationProxy *applicationProxy = [%c(LSApplicationProxy) applicationProxyForIdentifier:applicationBundleID];
 //	appStoreReceiptURL		->		opens application app store receipt folder (StoreKit)
 //	bundleContainerURL		->		opens applications container and selects application

@@ -18,11 +18,12 @@
 		return;
 	}
 	NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(PSSpecifier *specifier, NSDictionary *bindings) {
-		if ( specifier.cellType == PSGroupCell ) {
-			return [specifier.name.lowercaseString rangeOfString:text.lowercaseString].location != NSNotFound;
-		} else {
-			return YES;
+		if ( specifier.cellType != PSGroupCell ) {
+			NSString *appName = specifier.name;
+			NSString *appID = [specifier.properties objectForKey:@"cellSubtitleText"];
+			return ( ( [appName.lowercaseString rangeOfString:text.lowercaseString].location != NSNotFound ) || ( [appID.lowercaseString rangeOfString:text.lowercaseString].location != NSNotFound ) );
 		}
+		return YES;
 	}];
 	NSMutableArray *_specifiersFiltered = [NSMutableArray new];
 	[_specifiersFiltered addObjectsFromArray:self.specifiersInstalledSystemGroup];

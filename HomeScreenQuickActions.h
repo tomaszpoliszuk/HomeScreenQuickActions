@@ -78,6 +78,7 @@ static NSString *const domainString = @"com.tomaszpoliszuk.homescreenquickaction
 @interface SBIconView : UIView
 @property (nonatomic, retain) SBIcon *icon;
 @property (nonatomic, retain) SBFolderIcon *folderIcon;
+@property (nonatomic, readonly, copy) NSString *applicationBundleIdentifier;
 @property (nonatomic, readonly, copy) NSString *applicationBundleIdentifierForShortcuts;
 - (bool)isFolderIcon;
 - (long long)displayedLabelAccessoryType;
