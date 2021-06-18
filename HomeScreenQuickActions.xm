@@ -3,8 +3,7 @@
  *
  * Home Screen Quick Actions is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * the Free Software Foundation, version 3 of the License.
  *
  * Home Screen Quick Actions is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -1309,6 +1308,13 @@ static void ClearDirectoryURLContents(NSURL *url) {
 		}
 		if (%c(UIActivityViewController)) {
 			UIActivityViewController *activityViewController = [[%c(UIActivityViewController) alloc] initWithActivityItems:[NSArray arrayWithObjects:stringToShare, nil, nil] applicationActivities:nil];
+
+			activityViewController.modalPresentationStyle = UIModalPresentationPopover;
+			UIPopoverPresentationController *popoverPresentationController = activityViewController.popoverPresentationController;
+			popoverPresentationController.sourceView = [self.window.rootViewController view];
+			popoverPresentationController.sourceView = self;
+			popoverPresentationController.sourceRect = self.bounds;
+
 			[self.window.rootViewController presentViewController:activityViewController animated:YES completion:nil];
 		}
 		return NO;
@@ -1387,13 +1393,13 @@ static void ClearDirectoryURLContents(NSURL *url) {
 %hook UIActivityContentViewController
 - (void)viewWillAppear:(bool)arg1 {
 	%orig;
-	if ( enableTweak ) {
+	if ( enableTweak && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad ) {
 		kDismissFloatingDockIfPresented;
 	}
 }
 - (void)viewWillDisappear:(bool)arg1 {
 	%orig;
-	if ( enableTweak ) {
+	if ( enableTweak && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad ) {
 		kPresentFloatingDockIfDismissed;
 	}
 }
@@ -1402,13 +1408,13 @@ static void ClearDirectoryURLContents(NSURL *url) {
 %hook SKRemoteProductActivityViewController
 - (void)viewWillAppear:(bool)arg1 {
 	%orig;
-	if ( enableTweak ) {
+	if ( enableTweak && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad ) {
 		kDismissFloatingDockIfPresented;
 	}
 }
 - (void)viewWillDisappear:(bool)arg1 {
 	%orig;
-	if ( enableTweak ) {
+	if ( enableTweak && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad ) {
 		kPresentFloatingDockIfDismissed;
 	}
 }
